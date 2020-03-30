@@ -43,8 +43,8 @@
                     <td>New</td>
                     <td>24/02/2020</td>
                     <td>
-                      <a href="" class="btn-action" data-toggle="modal" data-target="#editModal"><img src="images/icons8-edit.svg" alt=""></a>
-                      <a href="" class="btn-action"><img src="images/bin.svg" alt=""></a></td>
+                      <a href="" class="btn-action" data-toggle="modal" data-target="#viewLead" (click)="viewProject(viewLead)"><img src="../../../assets/images/icons8-edit.svg" alt=""></a>
+                      <a href="" class="btn-action"><img src="../../../assets/images/bin.svg" alt=""></a></td>
                     </tr>
                     <tr>
                       <td>Uday Gupta</td>
@@ -136,3 +136,137 @@
                   </section>
                   
                 </div>
+                <ng-template #viewLead>
+                   <!-- Modal -->
+                   <div class="modal fade" id="viewLead" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered custom-modal" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Lead Details</h5>
+                          <button type="button" class="close" data-dismiss="modal" (click)="closeModal()" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="row">
+                            <div class="col-md-2">
+                              <div class="form-group">
+                                <span class="lead-title">Enquiry Number</span>
+                                <span class="lead-info">ENQ123538</span>
+                              </div>
+                            </div>
+                            <div class="col-md-2">
+                              <div class="form-group">
+                                <span class="lead-title">Full Name</span>
+                                <span class="lead-info">Ayush Jain</span>
+                              </div>
+                            </div>
+                            <div class="col-md-2">
+                              <div class="form-group">
+                                <span class="lead-title">Mobile Number</span>
+                                <span class="lead-info">970025401</span>
+                              </div>
+                            </div>
+                            <div class="col-md-2">
+                              <div class="form-group">
+                                <span class="lead-title">Primary Email</span>
+                                <span class="lead-info">email007ail.com</span>
+                              </div>
+                            </div>
+                            <div class="col-md-2">
+                              <div class="form-group">
+                                <span class="lead-title">Enquiry Source</span>
+                                <span class="lead-info">Website</span>
+                              </div>
+                            </div>
+                            <div class="col-md-2">
+                              <div class="form-group">
+                                <span class="lead-title">Location</span>
+                                <span class="lead-info">Kalyan</span>
+                              </div>
+                            </div>
+                            <div class="col-md-2">
+                              <div class="form-group">
+                                <span class="lead-title">Property Type</span>
+                                <span class="lead-info">ENQ123538</span>
+                              </div>
+                            </div>
+                            <div class="col-md-2">
+                              <div class="form-group">
+                                <span class="lead-title">Maximum Budget</span>
+                                <span class="lead-info">75L</span>
+                              </div>
+                            </div>
+                            <div class="col-md-2">
+                              <div class="form-group">
+                                <span class="lead-title">Enquired For</span>
+                                <span class="lead-info">Godrej Skyline</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h4 class="lead-heading mt-4 mb-3">Broker Status</h4>
+                            </div>
+                            <div class="col-md-2">
+                              <div class="form-group">
+                                <span class="lead-title">Enquiry Status</span>
+                                <span class="lead-info">Hot</span>
+                              </div>
+                            </div>
+                            <div class="col-md-2">
+                              <div class="form-group">
+                                <span class="lead-title">Next Action Date</span>
+                                <span class="lead-info">26/02/2020</span>
+                              </div>
+                            </div>
+                            <div class="col-md-2">
+                              <div class="form-group">
+                                <span class="lead-title">Assigned To</span>
+                                <span class="lead-info">A1 Enterprises</span>
+                              </div>
+                            </div>
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <span class="lead-title">Comment</span>
+                                <span class="lead-info">Very much interested in the property.</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h4 class="lead-heading mt-4 mb-3">My Status</h4>
+                            </div>
+                            <div class="col-md-2">
+                              <div class="form-group">
+                                <span class="lead-title">Enquiry Status</span>
+                                <span class="lead-info">New</span>
+                              </div>
+                            </div>
+                            <div class="col-md-2">
+                              <div class="form-group">
+                                <span class="lead-title">Next Action Date</span>
+                                <span class="lead-info">26/02/2020</span>
+                              </div>
+                            </div>
+                            <div class="col-md-2">
+                              <div class="form-group">
+                                <span class="lead-title">Assigned To</span>
+                                <span class="lead-info">Mayur Patil</span>
+                              </div>
+                            </div>
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <span class="lead-title">Comment</span>
+                                <span class="lead-info">Very much interested in the property.</span>
+                              </div>
+                            </div>
+                          </div>
+                          
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+
+                  </ng-template>
