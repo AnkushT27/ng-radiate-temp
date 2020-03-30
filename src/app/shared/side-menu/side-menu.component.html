@@ -1,0 +1,39 @@
+<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left cbp-spmenu-open" id="sideBarMenu">
+  <div class="bigMenu">
+    <h3 ><img src="../../../assets/images/logo.png" alt="" class="big-logo">
+    <img src="../../../assets/images/50x50.png" alt="" class="small-logo">
+    </h3>
+    <ul>
+      <li> <a [routerLink]="['/leads']" class="active"><img src="../../../assets/images/icons8-edit.svg" alt=""> <span class="menuText">All Leads</span></a></li>
+      <li> <a [routerLink]="['/projects']"><img src="../../../assets/images/icons8-edit.svg" alt=""> <span class="menuText">My Projects</span></a></li>
+      <li> <a [routerLink]="['/brokers']"><span class="menuText">Associate Brokers</span></a></li>
+    </ul>
+    <div class="sidebarFooter">
+      <div class="media">
+        <img src="../../../assets/images/50x50.png" alt="" >
+        <div class="media-body">
+          <h5 class="mt-0">Godrej Properties</h5>
+          Serwesh Tiwari
+        </div>
+      </div>
+      <ul>
+        <li><a href="">Log Out</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<span id="sideBar" (click)="toggleMenu()"><img src="../../../assets/images/menu.svg"></span>
+<script src="../../../assets/js/classie.js"></script>
+  <script>
+    var body = document.body;
+    $(document).ready(function(){
+      $('#sideBar').click(function(e){
+        e.preventDefault();
+        console.log('this is my onclick');
+        $(this).toggleClass('active');
+        $(body).toggleClass('cbp-spmenu-push-toright');
+        $('#sideBarMenu').toggleClass('cbp-spmenu-open')
+      })
+  
+});
+     </script>

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>NgRadiate</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body class="cbp-spmenu-push cbp-spmenu-push-toright">
+  <app-root></app-root>
+
+  <script>
+      var menuLeft = document.getElementById('sideBarMenu'),
+      showLeftPush = document.getElementById('sideBar'),
+      body = document.body;
+      console.log('this is my onclick',showLeftPush,menuLeft)
+      showLeftPush.onclick = ()=> {
+      console.log('this is my onclick')
+      classie.toggle( this, 'active' );
+      classie.toggle( body, 'cbp-spmenu-push-toright' );
+      classie.toggle( menuLeft, 'cbp-spmenu-open' );
+      };
+     </script>
+
+</body>
+</html>

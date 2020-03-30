@@ -1,0 +1,17 @@
+span#sideBar {
+    background: #fff;
+    padding: 10px;
+    position: absolute;
+    left: -40px;
+    top: 0;
+    z-index: 999999;
+    border-radius: 0 0 3px 0;
+    box-shadow: 7px 5px 10px 0 rgba(0, 0, 0, 0.25);
+    -webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+span#sideBar img {
+    width: 20px;
+    opacity: .6;
+}
