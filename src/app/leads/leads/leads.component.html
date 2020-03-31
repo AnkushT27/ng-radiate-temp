@@ -22,7 +22,7 @@
               </div>
             </div>
             <div class="card-body">
-              <table id="dataTables" class="table table-borderless table-hover dataTables">
+              <table id="dataTables" class="table table-borderless table-hover dataTables" datatable [dtOptions]="leadTableOptions" [dtTrigger]="leadTableTrigger">
                 <thead>
                   <tr>
                     <th>Name</th>
@@ -35,94 +35,18 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Uday Gupta</td>
-                    <td>987654643131</td>
-                    <td>test@abcsd.com</td>
-                    <td>Rishi bnasal</td>
-                    <td>New</td>
-                    <td>24/02/2020</td>
+                  <tr *ngFor="let lead of response;let i=index">
+                    <td>{{lead.name}}</td>
+                    <td>{{lead.mobile}}</td>
+                    <td>{{lead.email}}</td>
+                    <td>{{lead.assignedto}}</td>
+                    <td>{{lead.status}}</td>
+                    <td>{{lead.ncd}}</td>
                     <td>
                       <a href="" class="btn-action" data-toggle="modal" data-target="#viewLead" (click)="viewProject(viewLead)"><img src="../../../assets/images/icons8-edit.svg" alt=""></a>
                       <a href="" class="btn-action"><img src="../../../assets/images/bin.svg" alt=""></a></td>
                     </tr>
-                    <tr>
-                      <td>Uday Gupta</td>
-                      <td>987654643131</td>
-                      <td>test@abcsd.com</td>
-                      <td>Rishi bnasal</td>
-                      <td>New</td>
-                      <td>24/02/2020</td>
-                      <td>
-                        <a href="" class="btn-action" data-toggle="modal" data-target="#editModal"><img src="images/icons8-edit.svg" alt=""></a>
-                        <a href="" class="btn-action"><img src="images/bin.svg" alt=""></a></td>
-                      </tr>
-                      <tr>
-                        <td>Uday Gupta</td>
-                        <td>987654643131</td>
-                        <td>test@abcsd.com</td>
-                        <td>Rishi bnasal</td>
-                        <td>New</td>
-                        <td>24/02/2020</td>
-                        <td>
-                          <a href="" class="btn-action" data-toggle="modal" data-target="#editModal"><img src="images/icons8-edit.svg" alt=""></a>
-                          <a href="" class="btn-action"><img src="images/bin.svg" alt=""></a></td>
-                        </tr>
-                        <tr>
-                          <td>Uday Gupta</td>
-                          <td>987654643131</td>
-                          <td>test@abcsd.com</td>
-                          <td>Rishi bnasal</td>
-                          <td>New</td>
-                          <td>24/02/2020</td>
-                          <td>
-                            <a href="" class="btn-action" data-toggle="modal" data-target="#editModal"><img src="images/icons8-edit.svg" alt=""></a>
-                            <a href="" class="btn-action"><img src="images/bin.svg" alt=""></a></td>
-                          </tr>
-                          <tr>
-                            <td>Uday Gupta</td>
-                            <td>987654643131</td>
-                            <td>test@abcsd.com</td>
-                            <td>Rishi bnasal</td>
-                            <td>New</td>
-                            <td>24/02/2020</td>
-                            <td>
-                              <a href="" class="btn-action" data-toggle="modal" data-target="#editModal"><img src="images/icons8-edit.svg" alt=""></a>
-                              <a href="" class="btn-action"><img src="images/bin.svg" alt=""></a></td>
-                            </tr>
-                            <tr>
-                              <td>Uday Gupta</td>
-                              <td>987654643131</td>
-                              <td>test@abcsd.com</td>
-                              <td>Rishi bnasal</td>
-                              <td>New</td>
-                              <td>24/02/2020</td>
-                              <td>
-                                <a href="" class="btn-action" data-toggle="modal" data-target="#editModal"><img src="images/icons8-edit.svg" alt=""></a>
-                                <a href="" class="btn-action"><img src="images/bin.svg" alt=""></a></td>
-                              </tr>
-                              <tr>
-                                <td>Uday Gupta</td>
-                                <td>987654643131</td>
-                                <td>test@abcsd.com</td>
-                                <td>Rishi bnasal</td>
-                                <td>New</td>
-                                <td>24/02/2020</td>
-                                <td>
-                                  <a href="" class="btn-action" data-toggle="modal" data-target="#editModal"><img src="images/icons8-edit.svg" alt=""></a>
-                                  <a href="" class="btn-action"><img src="images/bin.svg" alt=""></a></td>
-                                </tr>
-                                <tr>
-                                  <td>Uday Gupta</td>
-                                  <td>987654643131</td>
-                                  <td>test@abcsd.com</td>
-                                  <td>Rishi bnasal</td>
-                                  <td>New</td>
-                                  <td>24/02/2020</td>
-                                  <td>
-                                    <a href="" class="btn-action" data-toggle="modal" data-target="#editModal"><img src="images/icons8-edit.svg" alt=""></a>
-                                    <a href="" class="btn-action"><img src="images/bin.svg" alt=""></a></td>
-                                  </tr>
+                    
                                   
                                 </tbody>
                                 
