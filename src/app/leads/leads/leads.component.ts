@@ -2,13 +2,14 @@ import { Component, OnInit,TemplateRef, AfterViewInit } from '@angular/core';
 import {SideMenuService} from '../../side-menu.service'
 import {BsModalService,BsModalRef} from 'ngx-bootstrap/modal';
 import {Subject} from 'rxjs';
+import { LeadsService } from '../leads.service';
 @Component({
   selector: 'app-leads',
   templateUrl: './leads.component.html',
   styleUrls: ['./leads.component.css']
 })
 export class LeadsComponent implements OnInit,AfterViewInit {
-  
+  searchString:string = '';
   config = {
     animated: true,
     keyboard: false,
@@ -16,12 +17,12 @@ export class LeadsComponent implements OnInit,AfterViewInit {
     ignoreBackdropClick: false
   };
   modalRef: BsModalRef;
-  responses:any;
+  responses:any=[];
   response:any;
   leadTableOptions: DataTables.Settings = {};
   leadTableTrigger: Subject<any> = new Subject();
   
-  constructor(private sidemenuservice : SideMenuService,private modalService : BsModalService) { 
+  constructor(private sidemenuservice : SideMenuService,private modalService : BsModalService,private leadservice:LeadsService) { 
     this.sidemenuservice.changeNav({'menu':true});
     this.getLeads();
     this.leadTableOptions = {
@@ -39,8 +40,9 @@ export class LeadsComponent implements OnInit,AfterViewInit {
     this.leadTableTrigger.next()
   }
 
-  viewProject(template:TemplateRef<any>){
-    this.modalRef = this.modalService.show(template,this.config)
+  viewProject(template:TemplateRef<any>,id){
+    this.modalRef = this.modalService.show(template,this.config);
+    this.getLead(id);
    }
  
    closeModal(){
@@ -48,37 +50,15 @@ export class LeadsComponent implements OnInit,AfterViewInit {
    }
 
    getLeads(){
-    
-    this.response = [
-      {
-        "name":"Uday Gupta",
-        "mobile":"987654643131",
-        "email":"test@abcsd.com",
-        "assignedto":"Rishi bnasal",
-        "status":"New",
-        "ncd":"24/02/2020"
-      },
-      {
-        "name":"Uday Gupta",
-        "mobile":"987654643131",
-        "email":"test@abcsd.com",
-        "assignedto":"Rishi bnasal",
-        "status":"New",
-        "ncd":"24/02/2020"
-      },
-      {
-        "name":"Uday Gupta",
-        "mobile":"987654643131",
-        "email":"test@abcsd.com",
-        "assignedto":"Rishi bnasal",
-        "status":"New",
-        "ncd":"24/02/2020"
-      }
-    ]
+    this.leadservice.leads(this.searchString).subscribe((res:any)=>{
+        this.responses = res.radiate_b_leads;
+     })
    }
 
    getLead(index){
-    this.response = this.responses[index];
+    this.leadservice.getEachLead(index).subscribe((res:any)=>{
+      this.response = res
+    })
    }
 
 }

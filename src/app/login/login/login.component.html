@@ -11,17 +11,24 @@
     <div class="col-md-6 p-0">
       <div class="login-wrapper" >
         <h1>Login</h1>
-        <form action="">
+        <form novalidate (ngSubmit)="login(loginForm)" [formGroup]="loginForm" autocomplete="off">
           <div class="form-group">
-            <input type="text" placeholder="Email Address" class="form-control">
+            <input type="text" placeholder="Email Address" class="form-control" formControlName="email">
+            <span class="error" *ngIf="(loginForm.get('email').hasError('required') && loginForm.get('email').touched)">
+              This field is mandatory
+            </span>
+            <span *ngIf="(loginForm.get('email').hasError('pattern') && loginForm.get('email').touched)" class="error">*Invalid Email</span>
           </div>
           <div class="form-group">
-            <input type="text" placeholder="Password" class="form-control">
+            <input type="password" placeholder="Password" class="form-control" formControlName="password">
+            <span class="error" *ngIf="(loginForm.get('password').hasError('required') && loginForm.get('password').touched)">
+              This field is mandatory
+            </span>
           </div>
           <div class="form-group">
-            <a [routerLink]="['/leads']"  role="button" class="btn btn-primary btn-sm float-right">
+            <button type="submit" class="btn btn-primary btn-sm float-right">
               Log in
-            </a>
+            </button>
             <div class="custom-control custom-checkbox">
               <input type="checkbox" class="custom-control-input" id="rememberMe">
               <label class="custom-control-label" for="rememberMe">Remember Me</label>

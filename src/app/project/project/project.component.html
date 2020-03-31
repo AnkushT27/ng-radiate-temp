@@ -28,11 +28,11 @@
                       <span class="title-filters">Apply Filters</span>
                     </div>
                     <div class="col-md-6">
-                      <a class="btn btn-project float-right" href="edit-project.php"  data-toggle="modal" data-target="#addProject" (click)="showAddProject(addProject)"><i class="fa plus-icon">+</i> Add New Project</a>
+                      <a class="btn btn-project float-right" href=""  data-toggle="modal" data-target="#addProject" (click)="showAddProject(addProject)"><i class="fa plus-icon">+</i> Add New Project</a>
                     </div>
                   </div>
                 </div>
-                <div class="lead-container">
+                <div class="lead-container" *ngFor="let project of Projects">
                   <h1>Godrej Skyline <span class="location">Mulund</span></h1>
                   <div class="row">
                     <div class="col-md-9">
@@ -72,7 +72,7 @@
                       <div class="row">
                         <div class="col-md-12 text-right">
                           <span class="grid-details">
-                            <a href="edit-project.php" class="text-link" data-toggle="modal" data-target="#addProject" (click)="showAddProject(addProject)">Edit Details</a>
+                            <a href="" class="text-link" data-toggle="modal" data-target="#addProject" (click)="showAddProject(addProject)">Edit Details</a>
                           </span>
                            </div>
                             <div class="col-md-12 text-right">
@@ -112,20 +112,26 @@
               <div class="card-body">
                 
                 <div class="lead-container">
-                  <form action="">
+                  <form novalidate (ngSubmit)="login(addProjectForm)" [formGroup]="addProjectForm" autocomplete="off">
                     <div class="row">
                       <div class="col-md-12">
                         <div class="row">
                           <div class="col-md-3">
                             <div class="form-group">
                               <label for="formGroupExampleInput">Project Name</label>
-                              <input type="text" class="form-control"  placeholder="Name">
+                              <input type="text" class="form-control"  placeholder="Name" formControlName="name">
+                              <span class="error" *ngIf="(addProjectForm.get('name').hasError('required') && addProjectForm.get('name').touched)">
+                                This field is mandatory
+                              </span>
                             </div>
                           </div>
                           <div class="col-md-3">
                             <div class="form-group">
                               <label for="formGroupExampleInput">Project Location</label>
-                              <input type="text" class="form-control"  placeholder="Location">
+                              <input type="text" class="form-control"  placeholder="Location" formControlName="location">
+                              <span class="error" *ngIf="(addProjectForm.get('location').hasError('required') && addProjectForm.get('location').touched)">
+                                This field is mandatory
+                              </span>
                             </div>
                           </div>
                           <div class="w-100"></div>
@@ -134,20 +140,26 @@
                             <div class="row">
                               <div class="form-group col-md-6">
                                 <div class="input-group">
-                                  <input type="text" aria-label="First name" class="form-control">
+                                  <input type="text" aria-label="First name" class="form-control" formControlName="budget">
                                   <select class="form-control" >
                                     <option value="1">Lc</option>
                                     <option value="2">CR</option>
                                   </select>
+                                  <span class="error" *ngIf="(addProjectForm.get('budget').hasError('required') && addProjectForm.get('budget').touched)">
+                                    This field is mandatory
+                                  </span>
                                 </div>
                               </div>
                               <div class="form-group col-md-6">
                                 <div class="input-group">
-                                  <input type="text" aria-label="First name" class="form-control">
+                                  <input type="text" aria-label="First name" class="form-control" formControlName="budgetRange">
                                   <select class="form-control" >
                                     <option value="1">Lc</option>
                                     <option value="2">CR</option>
                                   </select>
+                                  <span class="error" *ngIf="(addProjectForm.get('budget').hasError('required') && addProjectForm.get('budget').touched)">
+                                    This field is mandatory
+                                  </span>
                                 </div>
                               </div>
                             </div>
@@ -155,7 +167,7 @@
                           <div class="col-md-3">
                             <div class="form-group">
                               <label for="formGroupExampleInput">Possession</label>
-                              <select class="form-control" >
+                              <select class="form-control" formControlName="possesion">
                                 <option selected>Select</option>
                                 <option value="1">2022</option>
                                 <option value="2">2021</option>
@@ -163,12 +175,15 @@
                                 <option value="2">2019</option>
                                 <option value="2">2018</option>
                               </select>
+                              <span class="error" *ngIf="(addProjectForm.get('possesion').hasError('required') && addProjectForm.get('possesion').touched)">
+                                This field is mandatory
+                              </span>
                             </div>
                           </div>
                           <div class="col-md-3">
                             <div class="form-group">
                               <label for="formGroupExampleInput">Status</label>
-                              <select class="form-control" >
+                              <select class="form-control" formControlName="status">
                                 <option selected>Select</option>
                                 <option value="1">2022</option>
                                 <option value="2">2021</option>
@@ -176,24 +191,33 @@
                                 <option value="2">2019</option>
                                 <option value="2">2018</option>
                               </select>
+                              <span class="error" *ngIf="(addProjectForm.get('possesion').hasError('required') && addProjectForm.get('possesion').touched)">
+                                This field is mandatory
+                              </span>
                             </div>
                           </div>
                           <div class="w-100"></div>
                           <div class="col-md-3">
                             <div class="form-group">
                               <label for="formGroupExampleInput">Website</label>
-                              <input type="text" class="form-control"  placeholder="Enter link">
+                              <input type="text" class="form-control"  placeholder="Enter link" formControlName="website">
+                              <span class="error" *ngIf="(addProjectForm.get('website').hasError('required') && addProjectForm.get('website').touched)">
+                                This field is mandatory
+                              </span>
                             </div>
                           </div>
                           <div class="col-md-3">
                             <div class="form-group">
                               <label for="formGroupExampleInput">Knowledge Centre</label>
-                              <input type="text" class="form-control"  placeholder="Enter link">
+                              <input type="text" class="form-control"  placeholder="Enter link"  formControlName="knowledge">
+                              <span class="error" *ngIf="(addProjectForm.get('possesion').hasError('required') && addProjectForm.get('knowledge').touched)">
+                                This field is mandatory
+                              </span>
                             </div>
                           </div>
                           <div class="col-md-6">
                             <div class="form-group text-right">
-                              <button class="btn btn-secondary btn-sm mt-4" type="button">Save</button>
+                              <button class="btn btn-secondary btn-sm mt-4" type="submit">Save</button>
                             </div>
                           </div>
                         </div>

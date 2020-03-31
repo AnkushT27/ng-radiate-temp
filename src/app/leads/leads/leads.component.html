@@ -13,9 +13,10 @@
                 <div class="col-md-5">
                   <div class="input-group search-header">
                     <img src="images/search_icon.svg" alt="">
-                    <input type="text" class="form-control" placeholder="Search Name, Email or Phone" aria-label="Search Name, Email or Phone" aria-describedby="button-addon2">
+                    <input type="text" class="form-control" placeholder="Search Name, Email or Phone" aria-label="Search Name, Email or Phone" aria-describedby="button-addon2" 
+                    [(ngModel)]="searchString">
                     <div class="input-group-append">
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="getLeads()">Search</button>
                     </div>
                   </div>
                 </div>
@@ -35,15 +36,15 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let lead of response;let i=index">
+                  <tr *ngFor="let lead of responses;let i=index">
                     <td>{{lead.name}}</td>
-                    <td>{{lead.mobile}}</td>
+                    <td>{{lead.phone}}</td>
                     <td>{{lead.email}}</td>
-                    <td>{{lead.assignedto}}</td>
-                    <td>{{lead.status}}</td>
+                    <td>{{lead.broker_name}}</td>
+                    <td>{{lead.status_name}}</td>
                     <td>{{lead.ncd}}</td>
                     <td>
-                      <a href="" class="btn-action" data-toggle="modal" data-target="#viewLead" (click)="viewProject(viewLead)"><img src="../../../assets/images/icons8-edit.svg" alt=""></a>
+                      <a href="" class="btn-action" data-toggle="modal" data-target="#viewLead" (click)="viewProject(viewLead,lead.id)"><img src="../../../assets/images/icons8-edit.svg" alt=""></a>
                       <a href="" class="btn-action"><img src="../../../assets/images/bin.svg" alt=""></a></td>
                     </tr>
                     
