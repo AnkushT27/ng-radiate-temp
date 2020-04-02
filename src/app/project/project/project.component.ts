@@ -4,6 +4,7 @@ import { ProjectService } from '../project.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SideMenuService } from '../../side-menu.service';
 import {SharedService} from '../../shared/shared.service'
+import { Router } from '../../../../node_modules/@angular/router';
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
@@ -11,48 +12,30 @@ import {SharedService} from '../../shared/shared.service'
 })
 export class ProjectComponent implements OnInit {
   projects:any = [];
-  addProjectForm:FormGroup
-  config = {
-    animated: true,
-    keyboard: false,
-    backdrop: true,
-    ignoreBackdropClick: false
-  };
-  modalRef: BsModalRef;
-  constructor(private sidemenuservice:SideMenuService, private shared:SharedService,private modalService : BsModalService,private project:ProjectService) {
+  viewProject:any;
+ 
+  constructor(private route:Router,private sidemenuservice:SideMenuService, private shared:SharedService,private project:ProjectService) {
     this.sidemenuservice.changeNav({'menu':true});
     this.getProjects();
-    this.addProjectForm = new FormGroup({
-      name: new FormControl('', [Validators.required]),
-      location: new FormControl('', [Validators.required]),
-      budget: new FormControl('', [Validators.required]),
-      possesion: new FormControl('', [Validators.required]),
-      website: new FormControl('', [Validators.required]),
-      knowledge: new FormControl('', [Validators.required]),
-      });
+  
    }
 
   ngOnInit() {
   }
 
-  showAddProject(template:TemplateRef<any>){
-   this.modalRef = this.modalService.show(template,this.config)
-  }
-
-  closeModal(){
-    this.modalRef.hide()
+  goToAddProject(id){
+     (id != 0)? 
+    this.route.navigate([`/editproject/${id}`]):this.route.navigate(['/addproject'])
   }
 
   getProjects(){
     this.project.getProjects().subscribe((res:any)=>{
-       console.log(res)
+       this.projects = res.radiate_projects_data;
     });
   }
 
-  addProject(addprojectForm:FormGroup){
-    this.project.addProject(addprojectForm.value).subscribe((res:any)=>{
-       console.log(res)
-    });
-  }
+
+
+  
 
 }

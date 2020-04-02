@@ -7,6 +7,7 @@ import { Interceptor } from './interceptor/interceptor';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {ProjectModule} from './project/project.module';
 @NgModule({
   declarations: [
     AppComponent
@@ -17,7 +18,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SharedModule,
     HttpClientModule,
     NgxSpinnerModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ProjectModule
   ],
   providers: [
     Interceptor,

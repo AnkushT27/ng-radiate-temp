@@ -4,6 +4,8 @@ import {ModalModule } from 'ngx-bootstrap'
 import { ProjectRoutingModule } from './project-routing.module';
 import { ProjectComponent } from './project/project.component';
 import { ReactiveFormsModule , FormsModule } from '@angular/forms';
+import { AddProjectComponent } from './add-project/add-project.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -12,6 +14,6 @@ import { ReactiveFormsModule , FormsModule } from '@angular/forms';
     ReactiveFormsModule,
     FormsModule
   ],
-  declarations: [ProjectComponent]
+  declarations: [ProjectComponent, AddProjectComponent]
 })
 export class ProjectModule { }

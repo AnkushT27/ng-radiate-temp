@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {classie} from 'desandro-classie'
 import * as $ from 'jquery';
+import { SharedService } from '../shared.service';
+import { Router } from '../../../../node_modules/@angular/router';
 @Component({
   selector: 'app-side-menu',
   templateUrl: './side-menu.component.html',
@@ -8,10 +10,18 @@ import * as $ from 'jquery';
 })
 export class SideMenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(private shared:SharedService,private router:Router) { }
 
   ngOnInit() {
   }
+
+  logout(){
+    this.shared.logout().subscribe((res:any)=>{
+      localStorage.clear();
+      this.router.navigate(['/login'])
+    })
+  }
+
 
   toggleMenu(){
     console.log('pop--->')

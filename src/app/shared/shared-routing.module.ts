@@ -13,6 +13,10 @@ const routes: Routes = [
   {
     path:'brokers',
     loadChildren:'../associate-broker/associate-broker.module#AssociateBrokerModule'
+  },
+  {
+    path:'login',
+    loadChildren:'../login/login.module#LoginModule'
   }
 ];
 

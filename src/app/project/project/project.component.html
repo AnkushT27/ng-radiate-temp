@@ -28,23 +28,23 @@
                       <span class="title-filters">Apply Filters</span>
                     </div>
                     <div class="col-md-6">
-                      <a class="btn btn-project float-right" href=""  data-toggle="modal" data-target="#addProject" (click)="showAddProject(addProject)"><i class="fa plus-icon">+</i> Add New Project</a>
+                      <a class="btn btn-project float-right"    (click)="goToAddProject(0)"><i class="fa plus-icon">+</i> Add New Project</a>
                     </div>
                   </div>
                 </div>
-                <div class="lead-container" *ngFor="let project of Projects">
-                  <h1>Godrej Skyline <span class="location">Mulund</span></h1>
+                <div class="lead-container" *ngFor="let project of projects">
+                  <h1>{{project.title}} <span class="location">{{project.locality_name}}</span></h1>
                   <div class="row">
                     <div class="col-md-9">
                       <div class="row">
                         <div class="col-md-4">
                           <span class="grid-details">
-                            <span class="light-text">Possession:</span>Jan 2024
+                            <span class="light-text">Possession:</span>{{project.possesion}}
                           </span>
                         </div>
                         <div class="col-md-4">
                           <span class="grid-details">
-                            <span class="light-text">Knowledge Centre:</span>Godrej Skyline
+                            <span class="light-text">Knowledge Centre:</span>{{project.knowledge}}
                           </span>
                         </div>
                          <div class="w-100"></div>
@@ -52,17 +52,17 @@
 
                         <div class="col-md-4">
                           <span class="grid-details">
-                            <span class="light-text">Budget Range:</span>1.8Cr - 2.4Cr
+                            <span class="light-text">Budget Range:</span>{{project.budget}}
                           </span>
                         </div>
                         <div class="col-md-4">
                           <span class="grid-details">
-                            <span class="light-text">Status:</span>Under Construction
+                            <span class="light-text">Status:</span>{{project.status}}
                           </span>
                         </div>
                         <div class="col-md-4">
                           <span class="grid-details">
-                            <span class="light-text">Website:</span>https://godrejskyline.com
+                            <span class="light-text">Website:</span>{{project.website}}
                           </span>
                         </div>
                       </div>
@@ -72,7 +72,7 @@
                       <div class="row">
                         <div class="col-md-12 text-right">
                           <span class="grid-details">
-                            <a href="" class="text-link" data-toggle="modal" data-target="#addProject" (click)="showAddProject(addProject)">Edit Details</a>
+                            <a  class="text-link" [routerLink]=""  (click)="goToAddProject(project.id)">Edit Details</a>
                           </span>
                            </div>
                             <div class="col-md-12 text-right">
@@ -94,142 +94,6 @@
     </section>
     
   </div>
-  <ng-template #addProject>
-  <section>
-      <!--   <button id="sideBar">Show/Hide Right Push Menu</button> -->
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card">
-              <div class="card-header editProject">
-                <div class="row">
-                  <div class="col-md-7">
-                    <h1>Godrej Skyline <span class="location">Mulund</span></h1>
-                  </div>
-                  
-                </div>
-              </div>
-              <div class="card-body">
-                
-                <div class="lead-container">
-                  <form novalidate (ngSubmit)="login(addProjectForm)" [formGroup]="addProjectForm" autocomplete="off">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="row">
-                          <div class="col-md-3">
-                            <div class="form-group">
-                              <label for="formGroupExampleInput">Project Name</label>
-                              <input type="text" class="form-control"  placeholder="Name" formControlName="name">
-                              <span class="error" *ngIf="(addProjectForm.get('name').hasError('required') && addProjectForm.get('name').touched)">
-                                This field is mandatory
-                              </span>
-                            </div>
-                          </div>
-                          <div class="col-md-3">
-                            <div class="form-group">
-                              <label for="formGroupExampleInput">Project Location</label>
-                              <input type="text" class="form-control"  placeholder="Location" formControlName="location">
-                              <span class="error" *ngIf="(addProjectForm.get('location').hasError('required') && addProjectForm.get('location').touched)">
-                                This field is mandatory
-                              </span>
-                            </div>
-                          </div>
-                          <div class="w-100"></div>
-                          <div class="col-md-3">
-                            <label for="formGroupExampleInput">Budget Range</label>
-                            <div class="row">
-                              <div class="form-group col-md-6">
-                                <div class="input-group">
-                                  <input type="text" aria-label="First name" class="form-control" formControlName="budget">
-                                  <select class="form-control" >
-                                    <option value="1">Lc</option>
-                                    <option value="2">CR</option>
-                                  </select>
-                                  <span class="error" *ngIf="(addProjectForm.get('budget').hasError('required') && addProjectForm.get('budget').touched)">
-                                    This field is mandatory
-                                  </span>
-                                </div>
-                              </div>
-                              <div class="form-group col-md-6">
-                                <div class="input-group">
-                                  <input type="text" aria-label="First name" class="form-control" formControlName="budgetRange">
-                                  <select class="form-control" >
-                                    <option value="1">Lc</option>
-                                    <option value="2">CR</option>
-                                  </select>
-                                  <span class="error" *ngIf="(addProjectForm.get('budget').hasError('required') && addProjectForm.get('budget').touched)">
-                                    This field is mandatory
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-md-3">
-                            <div class="form-group">
-                              <label for="formGroupExampleInput">Possession</label>
-                              <select class="form-control" formControlName="possesion">
-                                <option selected>Select</option>
-                                <option value="1">2022</option>
-                                <option value="2">2021</option>
-                                <option value="2">2020</option>
-                                <option value="2">2019</option>
-                                <option value="2">2018</option>
-                              </select>
-                              <span class="error" *ngIf="(addProjectForm.get('possesion').hasError('required') && addProjectForm.get('possesion').touched)">
-                                This field is mandatory
-                              </span>
-                            </div>
-                          </div>
-                          <div class="col-md-3">
-                            <div class="form-group">
-                              <label for="formGroupExampleInput">Status</label>
-                              <select class="form-control" formControlName="status">
-                                <option selected>Select</option>
-                                <option value="1">2022</option>
-                                <option value="2">2021</option>
-                                <option value="2">2020</option>
-                                <option value="2">2019</option>
-                                <option value="2">2018</option>
-                              </select>
-                              <span class="error" *ngIf="(addProjectForm.get('possesion').hasError('required') && addProjectForm.get('possesion').touched)">
-                                This field is mandatory
-                              </span>
-                            </div>
-                          </div>
-                          <div class="w-100"></div>
-                          <div class="col-md-3">
-                            <div class="form-group">
-                              <label for="formGroupExampleInput">Website</label>
-                              <input type="text" class="form-control"  placeholder="Enter link" formControlName="website">
-                              <span class="error" *ngIf="(addProjectForm.get('website').hasError('required') && addProjectForm.get('website').touched)">
-                                This field is mandatory
-                              </span>
-                            </div>
-                          </div>
-                          <div class="col-md-3">
-                            <div class="form-group">
-                              <label for="formGroupExampleInput">Knowledge Centre</label>
-                              <input type="text" class="form-control"  placeholder="Enter link"  formControlName="knowledge">
-                              <span class="error" *ngIf="(addProjectForm.get('possesion').hasError('required') && addProjectForm.get('knowledge').touched)">
-                                This field is mandatory
-                              </span>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group text-right">
-                              <button class="btn btn-secondary btn-sm mt-4" type="submit">Save</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+
+
  
-  </ng-template>
