@@ -3,12 +3,13 @@ import {SideMenuService} from '../../side-menu.service'
 import {BsModalService,BsModalRef} from 'ngx-bootstrap/modal';
 import {Subject} from 'rxjs';
 import { LeadsService } from '../leads.service';
+import { DataTableDirective } from 'angular-datatables';
 @Component({
   selector: 'app-leads',
   templateUrl: './leads.component.html',
   styleUrls: ['./leads.component.css']
 })
-export class LeadsComponent implements OnInit,AfterViewInit {
+export class LeadsComponent implements OnInit {
   searchString:string = '';
   config = {
     animated: true,
@@ -16,13 +17,15 @@ export class LeadsComponent implements OnInit,AfterViewInit {
     backdrop: true,
     ignoreBackdropClick: false
   };
+  showData:boolean =false;
   modalRef: BsModalRef;
   responses:any=[];
   response:any;
   leadTableOptions: DataTables.Settings = {};
   leadTableTrigger: Subject<any> = new Subject();
-  
-  constructor(private sidemenuservice : SideMenuService,private modalService : BsModalService,private leadservice:LeadsService) { 
+  dtElement: DataTableDirective;
+  constructor(private sidemenuservice : SideMenuService,private modalService : BsModalService,private leadservice:LeadsService) {
+    this.addClassesForBody();
     this.sidemenuservice.changeNav({'menu':true});
     this.getLeads();
     this.leadTableOptions = {
@@ -34,10 +37,7 @@ export class LeadsComponent implements OnInit,AfterViewInit {
   }
 
   ngOnInit() {
-  }
-
-  ngAfterViewInit(): void {
-    this.leadTableTrigger.next()
+ 
   }
 
   viewProject(template:TemplateRef<any>,id){
@@ -50,10 +50,13 @@ export class LeadsComponent implements OnInit,AfterViewInit {
    }
 
    getLeads(){
-    this.leadservice.leads(this.searchString).subscribe((res:any)=>{
-        this.responses = res.radiate_b_leads;
+    this.responses=[];
+     this.leadservice.leads(this.searchString).subscribe((res:any)=>{
+       this.responses = res.radiate_b_leads;
+       $('#DataTables').DataTable().destroy();
+       this.leadTableTrigger.next();
      })
-   }
+  }
 
    getLead(index){
     this.leadservice.getEachLead(index).subscribe((res:any)=>{
@@ -61,4 +64,10 @@ export class LeadsComponent implements OnInit,AfterViewInit {
     })
    }
 
+   addClassesForBody(){
+     $('body').addClass('cbp-spmenu-push');
+     $('body').addClass('cbp-spmenu-push-toright');
+   }
+
+   
 }

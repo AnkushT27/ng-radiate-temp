@@ -9,7 +9,8 @@ export class SharedService {
   constructor(private http:HttpClient) {
     this.validators= {
       'emailRegex':'^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$',
-      'phoneRegex':'/^([+]\d{2})?\d{10}$/'
+      'phoneRegex':'/^([+]\d{2})?\d{10}$/',
+      'budget': '[+-]?([0-9]*[.])?[0-9]+'
     }
    }
 

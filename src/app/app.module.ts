@@ -8,6 +8,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ProjectModule} from './project/project.module';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent
@@ -19,7 +20,11 @@ import {ProjectModule} from './project/project.module';
     HttpClientModule,
     NgxSpinnerModule,
     BrowserAnimationsModule,
-    ProjectModule
+    ProjectModule,
+    ToastrModule.forRoot({
+      timeOut: 2000,
+      positionClass: 'toast-top-center',
+    })
   ],
   providers: [
     Interceptor,

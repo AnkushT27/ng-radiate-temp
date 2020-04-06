@@ -41,24 +41,26 @@
                       <div class="col-md-3">
                         <label for="formGroupExampleInput">Budget Range</label>
                         <div class="row">
-                          <div class="form-group col-md-6">
+                          <div class="form-group col-md-8">
                             <div class="input-group">
                               <input type="text" aria-label="First name" class="form-control" formControlName="budgetFrom">
-                              <select class="form-control">
-                                <option value="1">Lc</option>
-                                <option value="2">CR</option>
+                              <span *ngIf="(addProjectForm.get('budgetFrom').hasError('pattern') && addProjectForm.get('budgetFrom').touched)" class="error">*Enter Numbers only</span>
+                              <select class="form-control" formControlName="budgetFromUnit">
+                                <option value="Lc" [selected]=true>Lc</option>
+                                <option value="CR">CR</option>
                               </select>
                               <span class="error" *ngIf="(addProjectForm.get('budgetFrom').hasError('required') && addProjectForm.get('budgetFrom').touched)">
                                 This field is mandatory
                               </span>
                             </div>
                           </div>
-                          <div class="form-group col-md-6">
+                          <div class="form-group col-md-8">
                             <div class="input-group">
                               <input type="text" aria-label="First name" class="form-control" formControlName="budgetTo">
-                              <select class="form-control" >
-                                <option value="1">Lc</option>
-                                <option value="2">CR</option>
+                              <span *ngIf="(addProjectForm.get('budgetTo').hasError('pattern') && addProjectForm.get('budgetTo').touched)" class="error">*Enter Numbers only</span>
+                              <select class="form-control" formControlName="budgetToUnit">
+                                <option value="Lc" [selected]=true>Lc</option>
+                                <option value="CR">CR</option>
                               </select>
                               <span class="error" *ngIf="(addProjectForm.get('budgetTo').hasError('required') && addProjectForm.get('budgetTo').touched)">
                                 This field is mandatory
@@ -119,7 +121,7 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group text-right">
-                          <button class="btn btn-secondary btn-sm mt-4" type="submit">Save</button>
+                          <button class="btn btn-secondary btn-sm mt-4" type="submit"  [disabled]='!addProjectForm.valid'>Save</button>
                         </div>
                       </div>
                     </div>

@@ -15,12 +15,14 @@ export class AddProjectComponent implements OnInit {
     this.addProjectForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
       location: new FormControl('', [Validators.required]),
-      budgetFrom: new FormControl('', [Validators.required]),
-      budgetTo: new FormControl('', [Validators.required]),
+      budgetFrom: new FormControl('', [Validators.required,Validators.pattern(this.shared.getValidator('budget'))]),
+      budgetTo: new FormControl('', [Validators.required,Validators.pattern(this.shared.getValidator('budget'))]),
       possesion: new FormControl('', [Validators.required]),
       website: new FormControl('', [Validators.required]),
       knowledge: new FormControl('', [Validators.required]),
-      status: new FormControl('', [Validators.required])
+      status: new FormControl('', [Validators.required]),
+      budgetFromUnit: new FormControl('Lc', [Validators.required]),
+      budgetToUnit: new FormControl('Lc', [Validators.required]),
       });
    }
 
@@ -28,16 +30,17 @@ export class AddProjectComponent implements OnInit {
   }
 
   addProjectData(addprojectForm:FormGroup){
+    console.log(this.addProjectForm.value)
     var projectpayload={
-      "title":addprojectForm.value.title,
-      "description":addprojectForm.value.description,
-      "other_info": addprojectForm.value.other_info,
+      "title":addprojectForm.value.name,
+      "description":"No description",
+      "other_info": "No other info",
       "website":addprojectForm.value.website,
-      "status_id":addprojectForm.value.status_id,
-      "budget_from":addprojectForm.value.budget_from,
-      "budget_upto":addprojectForm.value.budget_upto,
-      "builder_id":addprojectForm.value.builder_id,
-      "locality_id":addprojectForm.value.locality_id,
+      "status_id":addprojectForm.value.status,
+      "budget_from":addprojectForm.value.budgetFrom,
+      "budget_upto":addprojectForm.value.budgetTo,
+      "builder_id":localStorage.getItem('user_id'),
+      "locality_id":"0",
     }
      this.project.addProject(projectpayload).subscribe((res:any)=>{
        console.log(res)

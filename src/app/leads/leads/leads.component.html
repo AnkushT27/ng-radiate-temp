@@ -23,7 +23,7 @@
               </div>
             </div>
             <div class="card-body">
-              <table id="dataTables" class="table table-borderless table-hover dataTables" datatable [dtOptions]="leadTableOptions" [dtTrigger]="leadTableTrigger">
+              <table  id="DataTables" class="table table-borderless table-hover dataTables" datatable [dtOptions]="leadTableOptions" [dtTrigger]="leadTableTrigger">
                 <thead>
                   <tr>
                     <th>Name</th>
@@ -35,7 +35,7 @@
                     <th>Action</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody >
                   <tr *ngFor="let lead of responses;let i=index">
                     <td>{{lead.name}}</td>
                     <td>{{lead.phone}}</td>

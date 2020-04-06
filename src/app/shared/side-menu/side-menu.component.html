@@ -4,10 +4,9 @@
     <img src="../../../assets/images/50x50.png" alt="" class="small-logo">
     </h3>
     <ul>
-      <li> <a [routerLink]="['/leads']" class="active"><img src="../../../assets/images/icons8-edit.svg" alt=""> <span class="menuText">All Leads</span></a></li>
-      <li> <a [routerLink]="['/projects']"><img src="../../../assets/images/icons8-edit.svg" alt=""> <span class="menuText">My Projects</span></a></li>
-      <li> <a [routerLink]="['/brokers']"><span class="menuText">Associate Brokers</span></a></li>
-    </ul>
+      <li *ngFor="let menu of menuArray;let i= index"> 
+        <a [routerLink]="['/'+menu.routerLink]" [ngClass]="{'active': menu.state}" (click)="menuClicked(i)"><img style="margin-right: 10px" src="../../../assets/images/{{menu.icon}}.png" alt=""> <span class="menuText">{{menu.menuName}}</span></a></li>
+     </ul>
     <div class="sidebarFooter">
       <div class="media">
         <img src="../../../assets/images/50x50.png" alt="" >

@@ -9,8 +9,29 @@ import { Router } from '../../../../node_modules/@angular/router';
   styleUrls: ['./side-menu.component.css']
 })
 export class SideMenuComponent implements OnInit {
-
-  constructor(private shared:SharedService,private router:Router) { }
+  menuArray:any=[];
+  constructor(private shared:SharedService,private router:Router) {
+    this.menuArray = [
+      {
+        "menuName":"All Leads",
+        "state":true,
+        "routerLink":"leads",
+        "icon":"allleads_selected"
+      },
+      {
+        "menuName":"My Projects",
+        "state":false,
+        "routerLink":"projects",
+        "icon":"project"
+      },
+      {
+        "menuName":"Associate Brokers",
+        "state":false,
+        "routerLink":"brokers",
+        "icon":"broker"
+      }
+    ]
+   }
 
   ngOnInit() {
   }
@@ -21,7 +42,14 @@ export class SideMenuComponent implements OnInit {
       this.router.navigate(['/login'])
     })
   }
+  
+  menuClicked(index){
+    this.menuArray.forEach((element,itempos) => {
+      index == itempos ? (element.state = true,element.icon = element.icon+'_selected'):
+      (element.state=false,element.icon = element.icon.split('_')[0]);
 
+    });
+  }
 
   toggleMenu(){
     console.log('pop--->')

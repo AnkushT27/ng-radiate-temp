@@ -2,12 +2,13 @@ import { Component, OnInit,AfterViewInit,TemplateRef } from '@angular/core';
 import {SideMenuService} from '../../side-menu.service'
 import {BsModalService,BsModalRef} from 'ngx-bootstrap/modal';
 import {Subject} from 'rxjs';
+import { AssociateBrokerService } from '../associate-broker.service';
 @Component({
   selector: 'app-associate-broker',
   templateUrl: './associate-broker.component.html',
   styleUrls: ['./associate-broker.component.css']
 })
-export class AssociateBrokerComponent implements OnInit,AfterViewInit {
+export class AssociateBrokerComponent implements OnInit {
   
   config = {
     animated: true,
@@ -19,11 +20,12 @@ export class AssociateBrokerComponent implements OnInit,AfterViewInit {
   responses:any;
   response:any;
   brokerTableOptions: DataTables.Settings = {};
-  brokerTableTrigger: Subject<any> = new Subject();
+  brokerTableTriggerAll: Subject<any> = new Subject();
+  brokerTableTriggerBlack: Subject<any> = new Subject();
   
-  constructor(private sidemenuservice : SideMenuService,private modalService : BsModalService) { 
+  constructor(private sidemenuservice : SideMenuService,private modalService : BsModalService,private brokerService:AssociateBrokerService) { 
     this.sidemenuservice.changeNav({'menu':true});
-    this.getBroker();
+    this.getActiveBroker();
    this.brokerTableOptions = {
       searching:false,
       pagingType: 'full_numbers',
@@ -35,10 +37,7 @@ export class AssociateBrokerComponent implements OnInit,AfterViewInit {
   ngOnInit() {
   }
 
-  ngAfterViewInit(): void {
-    this.brokerTableTrigger.next()
-  }
-
+  
   viewProject(template:TemplateRef<any>){
     this.modalRef = this.modalService.show(template,this.config)
    }
@@ -47,62 +46,25 @@ export class AssociateBrokerComponent implements OnInit,AfterViewInit {
      this.modalRef.hide()
    }
 
-   getBroker2(){
-    
-    this.response = [
-      {
-        "name":"Uday Gupta",
-        "firmname":"LTI",
-        "mobile":"987654643131",
-        "email":"test@abcsd.com",
-        "activeProjects":"Godrej Highnest",
-       
-      },
-      {
-        "name":"Uday Gupta",
-        "firmname":"LTI",
-        "mobile":"987654643131",
-        "email":"test@abcsd.com",
-        "activeProjects":"Godrej Highnest",
-       
-      },
-      {
-        "name":"Uday Gupta",
-        "firmname":"LTI",
-        "mobile":"987654643131",
-        "email":"test@abcsd.com",
-        "activeProjects":"Godrej Highnest",
-       
-      }
-    ]
-   }
+   getActiveBroker(){
+     this.response=[]
+    this.brokerService.getActiveBrokers().subscribe((res:any)=>{
+        this.response=res.radiate_p_brokers;
+        $('#dataTablesAll').DataTable().destroy();
+        this.brokerTableTriggerAll.next()
 
-   getBroker(){
-    
-    this.response = [
-      {
-        "name":"Ankush Gupta",
-        "firmname":"LTI",
-        "mobile":"987654643131",
-        "email":"test@abcsd.com",
-        "activeProjects":"Godrej Highnest",
-      },
-      {
-        "name":"JAck Gupta",
-        "firmname":"LTI",
-        "mobile":"987654643131",
-        "email":"test@abcsd.com",
-        "activeProjects":"Godrej Highnest",
-      },
-      {
-        "name":"Rohit Gupta",
-        "firmname":"LTI",
-        "mobile":"987654643131",
-        "email":"test@abcsd.com",
-        "activeProjects":"Godrej Highnest",
-      }
-    ]
-   }
+    })
+  }
 
+  getBlacklistedBroker(){
+    this.response=[]
+   this.brokerService.getBlacklistedBrokers().subscribe((res:any)=>{
+       this.response=res.radiate_blacklisted_brokers;
+       $('#dataTablesBlack').DataTable().destroy();
+       this.brokerTableTriggerBlack.next()
+
+   })
+ }
+    
 }
 
