@@ -3,10 +3,24 @@
     <h3 ><img src="../../../assets/images/logo.png" alt="" class="big-logo">
     <img src="../../../assets/images/50x50.png" alt="" class="small-logo">
     </h3>
-    <ul>
+    <!-- <ul>
       <li *ngFor="let menu of menuArray;let i= index"> 
         <a [routerLink]="['/'+menu.routerLink]" [ngClass]="{'active': menu.state}" (click)="menuClicked(i)"><img style="margin-right: 10px" src="../../../assets/images/{{menu.icon}}.png" alt=""> <span class="menuText">{{menu.menuName}}</span></a></li>
-     </ul>
+     </ul> -->
+     <ul class="nav flex-column">
+      <li class="nav-item">
+        <a [routerLink]="['/leads']" [ngClass]="{'nav-link':true ,'active': menuArray[0].state}" (click)="menuClicked(0)"><img style="margin-right: 10px" [src]= "menuArray[0].state ? '../../../assets/images/allleads_selected.png':'../../../assets/images/allleads.png'" alt=""> <span class="menuText">All Leads</span></a>
+      </li>
+     
+      <li class="nav-item">
+        <a [routerLink]="['/projects']" [ngClass]="{'nav-link':true ,'active': menuArray[1].state}" (click)="menuClicked(1)"><img style="margin-right: 10px" [src]= "menuArray[1].state ? '../../../assets/images/project_selected.png':'../../../assets/images/project.png'" alt=""> <span class="menuText">My Projects</span></a>
+      </li>
+     
+      <li class="nav-item">
+        <a [routerLink]="['/brokers']" [ngClass]="{'nav-link':true ,'active': menuArray[2].state}" (click)="menuClicked(2)"><img style="margin-right: 10px" [src]= "menuArray[2].state ? '../../../assets/images/broker_selected.png':'../../../assets/images/broker.png'" alt=""> <span class="menuText">Associate Brokers</span></a>
+      </li>
+      
+    </ul>
     <div class="sidebarFooter">
       <div class="media">
         <img src="../../../assets/images/50x50.png" alt="" >

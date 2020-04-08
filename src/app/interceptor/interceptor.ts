@@ -5,6 +5,7 @@ import { catchError,tap} from 'rxjs/operators';
 import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '../../../node_modules/@angular/router';
+import Swal from 'sweetalert2';
 @Injectable({
     providedIn: 'root'
   })
@@ -40,10 +41,12 @@ export class Interceptor implements HttpInterceptor {
 	   			// http response status code
                console.error(error.status);
                if(error.status == 500){
-                  this.toaster.error('Something went wrong','INFO')
+                Swal.fire('Oops...', 'Something went wrong!', 'error')
+                  //this.toaster.error('Something went wrong','INFO')
                }
                else if(error.status == 401){
-                this.toaster.error('Unauthorized','INFO')
+                Swal.fire('Oops...', 'Something went wrong!', 'error')
+                //this.toaster.error('Unauthorized','INFO')
                 localStorage.clear();
                 $('body').removeClass('cbp-spmenu-push');
                 $('body').removeClass('cbp-spmenu-push-toright');

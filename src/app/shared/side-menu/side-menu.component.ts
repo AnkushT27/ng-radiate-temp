@@ -13,22 +13,13 @@ export class SideMenuComponent implements OnInit {
   constructor(private shared:SharedService,private router:Router) {
     this.menuArray = [
       {
-        "menuName":"All Leads",
-        "state":true,
-        "routerLink":"leads",
-        "icon":"allleads_selected"
+         "state":true
       },
       {
-        "menuName":"My Projects",
-        "state":false,
-        "routerLink":"projects",
-        "icon":"project"
+        "state":false
       },
       {
-        "menuName":"Associate Brokers",
-        "state":false,
-        "routerLink":"brokers",
-        "icon":"broker"
+        "state":false
       }
     ]
    }
@@ -44,11 +35,9 @@ export class SideMenuComponent implements OnInit {
   }
   
   menuClicked(index){
-    this.menuArray.forEach((element,itempos) => {
-      index == itempos ? (element.state = true,element.icon = element.icon+'_selected'):
-      (element.state=false,element.icon = element.icon.split('_')[0]);
-
-    });
+   index == 0 ? (this.menuArray[index].state = true,this.menuArray[1].state = false,this.menuArray[2].state = false) :
+   (index == 1 ? (this.menuArray[index].state = true,this.menuArray[0].state = false,this.menuArray[2].state = false) :
+   (this.menuArray[index].state = true,this.menuArray[1].state = false,this.menuArray[0].state = false) )
   }
 
   toggleMenu(){
