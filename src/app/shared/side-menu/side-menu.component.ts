@@ -30,7 +30,9 @@ export class SideMenuComponent implements OnInit {
   logout(){
     this.shared.logout().subscribe((res:any)=>{
       localStorage.clear();
-      this.router.navigate(['/login'])
+      $('body').removeClass('cbp-spmenu-push');
+      $('body').removeClass('cbp-spmenu-push-toright');
+      this.router.navigate([''])
     })
   }
   

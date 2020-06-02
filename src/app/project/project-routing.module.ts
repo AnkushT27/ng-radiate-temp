@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ProjectComponent } from './project/project.component';
 import {AddProjectComponent} from './add-project/add-project.component'
+import {AuthGuardService} from '../auth-guard/auth-guard'
 const routes: Routes = [
   {
     path:'',
@@ -9,11 +10,13 @@ const routes: Routes = [
   },
   {
     path:'editproject/:id',
-    component:AddProjectComponent
+    component:AddProjectComponent,
+    canActivate:[AuthGuardService]
   },
   {
     path:'addproject',
-    component:AddProjectComponent
+    component:AddProjectComponent,
+    canActivate:[AuthGuardService]
   }
 
 ];
