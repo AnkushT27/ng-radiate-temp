@@ -9,6 +9,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ProjectModule} from './project/project.module';
 import { ToastrModule } from 'ngx-toastr';
+import {AuthGuardService} from './auth-guard/auth-guard'
 @NgModule({
   declarations: [
     AppComponent
@@ -27,6 +28,7 @@ import { ToastrModule } from 'ngx-toastr';
     })
   ],
   providers: [
+    AuthGuardService,
     Interceptor,
     {
       provide: HTTP_INTERCEPTORS,
