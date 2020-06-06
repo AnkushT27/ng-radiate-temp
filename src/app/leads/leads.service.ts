@@ -16,4 +16,8 @@ export class LeadsService {
   getEachLead(id){
     return this.http.get(`${environment.baseURL}/leads/${id}`)
   }
+
+  sendMail(data){
+    return this.http.post(`${environment.baseURL}/leads`,data)
+  }
 }

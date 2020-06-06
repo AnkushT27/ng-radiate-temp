@@ -4,6 +4,8 @@ import {BsModalService,BsModalRef} from 'ngx-bootstrap/modal';
 import {Subject} from 'rxjs';
 import { LeadsService } from '../leads.service';
 import { DataTableDirective } from 'angular-datatables';
+
+
 @Component({
   selector: 'app-leads',
   templateUrl: './leads.component.html',
@@ -11,7 +13,7 @@ import { DataTableDirective } from 'angular-datatables';
 })
 export class LeadsComponent implements OnInit {
   searchString:string = '';
-  config = {
+ config = {
     animated: true,
     keyboard: false,
     backdrop: true,
@@ -20,10 +22,12 @@ export class LeadsComponent implements OnInit {
   showData:boolean =false;
   modalRef: BsModalRef;
   responses:any=[];
+  
   response:any;
   leadTableOptions: DataTables.Settings = {};
   leadTableTrigger: Subject<any> = new Subject();
   dtElement: DataTableDirective;
+ 
   constructor(private sidemenuservice : SideMenuService,private modalService : BsModalService,private leadservice:LeadsService) {
     this.addClassesForBody();
     this.sidemenuservice.changeNav({'menu':true});
@@ -34,6 +38,7 @@ export class LeadsComponent implements OnInit {
       lengthMenu: [[5, 10, 20, 50,-1],
       [5, 10, 20, 50,"All" ]]
     };
+
   }
 
   ngOnInit() {
@@ -44,11 +49,19 @@ export class LeadsComponent implements OnInit {
     this.modalRef = this.modalService.show(template,this.config);
     this.getLead(id);
    }
+
+   openProjectList(template:TemplateRef<any>,id){
+
+    this.modalRef = this.modalService.show(template,this.config);
+    
+   }
+
  
    closeModal(){
      this.modalRef.hide()
    }
 
+   
    getLeads(){
     this.responses=[];
      this.leadservice.leads(this.searchString).subscribe((res:any)=>{
@@ -60,6 +73,17 @@ export class LeadsComponent implements OnInit {
 
    getLead(index){
     this.leadservice.getEachLead(index).subscribe((res:any)=>{
+      this.response = res
+    })
+   }
+
+   sendMail(){
+     const data = {
+       projectID:["1","3"],
+       userId:["11"]
+     }
+     this.leadservice.sendMail(data
+      ).subscribe((res:any)=>{
       this.response = res
     })
    }

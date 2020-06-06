@@ -14,6 +14,6 @@ import { AddProjectComponent } from './add-project/add-project.component';
     ReactiveFormsModule,
     FormsModule
   ],
-  declarations: [ProjectComponent, AddProjectComponent]
+  declarations: [ProjectComponent, AddProjectComponent],
 })
 export class ProjectModule { }

@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required,Validators.pattern(this.shared.getValidator('emailRegex'))]),
       password: new FormControl('', [Validators.required]),
+      
       });
   }
 
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(loginForm:FormGroup){
+    
     this.loginservice.login(loginForm.value).subscribe((res:any)=>{
       this.userData = res;
       localStorage.setItem('token',this.userData.data.token);

@@ -12,6 +12,9 @@ export class ProjectService {
     return this.http.get(`${environment.baseURL}/projects`)
   }
 
+ getProjectData():any{
+   return   }
+
   addProject(payload){
     return this.http.post(`${environment.baseURL}/projects`,payload)
   }
