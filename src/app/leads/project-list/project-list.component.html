@@ -12,7 +12,10 @@
       <td>{{project.name}}</td>
       <td>{{project.location}}</td>
       <td><a><span style="color: #4C8BD4;" (click)="goToProjectDetails(project.id)">View More</span></a></td>
-      <td><input type="checkbox" (change)="pushProjectID(project.id)"></td>
+      <td><input type="checkbox"   (change)="pushProjectID(project.id,$event)"></td>
       </tr>
     </tbody>
  </table>
+ <div class="col-md-12">
+  <a class="btn btn-project float-right"    (click)="sendMail()"><i class="fa plus-icon"></i>Send</a>
+</div>

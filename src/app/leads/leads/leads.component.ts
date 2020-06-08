@@ -77,16 +77,7 @@ export class LeadsComponent implements OnInit {
     })
    }
 
-   sendMail(){
-     const data = {
-       projectID:["1","3"],
-       userId:["11"]
-     }
-     this.leadservice.sendMail(data
-      ).subscribe((res:any)=>{
-      this.response = res
-    })
-   }
+  
 
    addClassesForBody(){
      $('body').addClass('cbp-spmenu-push');
