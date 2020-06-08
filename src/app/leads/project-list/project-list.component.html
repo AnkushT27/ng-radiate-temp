@@ -1,0 +1,18 @@
+<table  id="DataTablesProject" class="table table-borderless table-hover dataTables" datatable [dtOptions]="projectListTableOptions" [dtTrigger]="projectListTableTrigger">
+  <thead>
+    <tr>
+      <th>Project Name</th>
+      <th>Location</th>
+      <th>Details</th>
+      <th>Select</th>
+    </tr>
+  </thead>
+  <tbody >
+    <tr *ngFor="let project of projects;let i=index">
+      <td>{{project.name}}</td>
+      <td>{{project.location}}</td>
+      <td><a><span style="color: #4C8BD4;" (click)="goToProjectDetails(project.id)">View More</span></a></td>
+      <td><input type="checkbox" (change)="pushProjectID(project.id)"></td>
+      </tr>
+    </tbody>
+ </table>
