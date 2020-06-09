@@ -5,7 +5,7 @@ import { LeadsRoutingModule } from './leads-routing.module';
 import { LeadsComponent } from './leads/leads.component';
 import { ModalModule } from '../../../node_modules/ngx-bootstrap';
 import { ReactiveFormsModule , FormsModule } from '@angular/forms';
-import { ProjectListComponent } from './project-list/project-list.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +15,6 @@ import { ProjectListComponent } from './project-list/project-list.component';
     ReactiveFormsModule,
     FormsModule
   ],
-  declarations: [LeadsComponent, ProjectListComponent]
+  declarations: [LeadsComponent]
 })
 export class LeadsModule { }

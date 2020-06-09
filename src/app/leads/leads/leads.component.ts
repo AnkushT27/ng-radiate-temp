@@ -19,10 +19,12 @@ export class LeadsComponent implements OnInit {
     backdrop: true,
     ignoreBackdropClick: false
   };
+  universalChecked:boolean =false;
+  singleChecked:boolean =false;
   showData:boolean =false;
   modalRef: BsModalRef;
   responses:any=[];
-  
+  leadIdArray:any = [];  
   response:any;
   leadTableOptions: DataTables.Settings = {};
   leadTableTrigger: Subject<any> = new Subject();
@@ -44,29 +46,69 @@ export class LeadsComponent implements OnInit {
   ngOnInit() {
  
   }
+  pushAllLeadID(event){
+    this.singleChecked = this.universalChecked;
+    this.leadIdArray = [];
+    if(event.target.checked){
+     
+      this.responses.map((data)=>{
+        this.leadIdArray.push(data.id);
+      })
+    }
+    else{
+      this.leadIdArray = []
+    }
+    console.log('lead',this.leadIdArray)
+  }
 
   viewProject(template:TemplateRef<any>,id){
     this.modalRef = this.modalService.show(template,this.config);
     this.getLead(id);
    }
 
-   openProjectList(template:TemplateRef<any>,id){
+   sendMailToLead(){
+    const data = {
+      projectID:this.leadIdArray,
+      userId:localStorage.getItem('user_id')
+    }
+    this.leadservice.sendMail(data
+     ).subscribe((res:any)=>{
+       console.log('res',res);
+   })
+  }
 
-    this.modalRef = this.modalService.show(template,this.config);
-    
+   pushLeadID(id:string){
+     this.universalChecked =false;
+    if(this.leadIdArray.length == 0){
+   this.leadIdArray.push(id)
+    }
+    else
+    {
+   let idPresent =  this.leadIdArray.findIndex((data)=>data == id)
+    idPresent!=-1 ? this.leadIdArray.splice(idPresent,1):this.leadIdArray.push(id);
    }
+  console.log(this.leadIdArray)
+  }
 
+  isLeadPresent(id:String){
+   if(this.leadIdArray.length == 0){
+     return false;
+   }
+   else{
+    const flag = this.leadIdArray.find((data)=>data === id)
+    return flag;
+  }
+  }
  
    closeModal(){
      this.modalRef.hide()
    }
 
-   
-   getLeads(){
+  getLeads(){
     this.responses=[];
-     this.leadservice.leads(this.searchString).subscribe((res:any)=>{
-       this.responses = res.radiate_b_leads;
-       $('#DataTables').DataTable().destroy();
+     this.leadservice.leads(this.searchString).subscribe(({radiate_b_leads}:any)=>{
+     this.responses = radiate_b_leads;
+      $('#DataTables').DataTable().destroy();
        this.leadTableTrigger.next();
      })
   }
@@ -77,9 +119,7 @@ export class LeadsComponent implements OnInit {
     })
    }
 
-  
-
-   addClassesForBody(){
+  addClassesForBody(){
      $('body').addClass('cbp-spmenu-push');
      $('body').addClass('cbp-spmenu-push-toright');
    }

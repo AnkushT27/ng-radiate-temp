@@ -26,11 +26,12 @@
             
             <div class="card-body">
               <div class="col-md-12">
-                <a class="btn btn-project float-right"    (click)="openProjectList(sendMail)"><i class="fa plus-icon">+</i>Send Mail</a>
+                <a (click)="sendMailToLead()"  class="btn btn-project float-right"  [class.disabled]="leadIdArray.length==0"  ><i class="fa plus-icon">+</i>Send Mail</a>
               </div>
               <table  id="DataTables" class="table table-borderless table-hover dataTables" datatable [dtOptions]="leadTableOptions" [dtTrigger]="leadTableTrigger">
                 <thead>
                   <tr>
+                    <th><input type="checkbox"  [(ngModel)]="universalChecked" (change)="pushAllLeadID($event)">Select</th>
                     <th>Name</th>
                     <th>Mobile</th>
                     <th>Email</th>
@@ -42,6 +43,8 @@
                 </thead>
                 <tbody >
                   <tr *ngFor="let lead of responses;let i=index">
+                    <td><input type="checkbox"  *ngIf="!universalChecked" (change)="pushLeadID(lead.id)" [checked]="isLeadPresent(lead.id)">
+                    <input type="checkbox"  [(ngModel)]="singleChecked" *ngIf="universalChecked" (change)="pushLeadID(lead.id)"></td>
                     <td>{{lead.name}}</td>
                     <td>{{lead.phone}}</td>
                     <td>{{lead.email}}</td>
@@ -200,21 +203,4 @@
                   </div>
 
                   </ng-template>
-                  <ng-template #sendMail>
-                    
-                      <div class="modal-dialog modal-dialog-centered custom-modal" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Lead Details</h5>
-                            <button type="button" class="close" data-dismiss="modal" (click)="closeModal()" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                     <app-project-list></app-project-list>
-                     </div>
-                     </div>
-                     </div>
-                    
-                  
-                   </ng-template>
+                 
