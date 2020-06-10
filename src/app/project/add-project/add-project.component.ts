@@ -3,6 +3,7 @@ import { ProjectService } from '../project.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SideMenuService } from '../../side-menu.service';
 import {SharedService} from '../../shared/shared.service'
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-add-project',
   templateUrl: './add-project.component.html',
@@ -10,7 +11,8 @@ import {SharedService} from '../../shared/shared.service'
 })
 export class AddProjectComponent implements OnInit {
   addProjectForm:FormGroup
-  constructor(private sidemenuservice:SideMenuService, private shared:SharedService,private project:ProjectService) {
+  editFlag: boolean;
+  constructor(private sidemenuservice:SideMenuService, private shared:SharedService,private project:ProjectService,private route:ActivatedRoute) {
     this.sidemenuservice.changeNav({'menu':true});
     this.addProjectForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
@@ -24,6 +26,11 @@ export class AddProjectComponent implements OnInit {
       budgetFromUnit: new FormControl('Lc', [Validators.required]),
       budgetToUnit: new FormControl('Lc', [Validators.required]),
       });
+     const id = this.route.snapshot.paramMap.get('id')
+     if(id){
+       this.editFlag = true;
+       this.showProject(id)
+     }
    }
 
   ngOnInit() {
@@ -49,8 +56,21 @@ export class AddProjectComponent implements OnInit {
 
   showProject(id){
     this.project.getProjectDetails(id).subscribe((res:any)=>{
-      console.log(res)
+   
+    },(error)=>{
+      this.addProjectForm.controls['name'].setValue('test');
+      this.addProjectForm.controls['location'].setValue('test');
+      this.addProjectForm.controls['budgetFrom'].setValue(1);
+      this.addProjectForm.controls['budgetTo'].setValue(2);
+      this.addProjectForm.controls['possesion'].setValue('test');
+      this.addProjectForm.controls['website'].setValue('test');
+      this.addProjectForm.controls['knowledge'].setValue('test');
+      this.addProjectForm.controls['status'].setValue('test');
     });
+  }
+
+  updateProjectData(addprojectForm:FormGroup){
+    console.log('in update',this.addProjectForm.value)
   }
 
 }

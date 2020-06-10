@@ -5,15 +5,20 @@ import { ProjectRoutingModule } from './project-routing.module';
 import { ProjectComponent } from './project/project.component';
 import { ReactiveFormsModule , FormsModule } from '@angular/forms';
 import { AddProjectComponent } from './add-project/add-project.component';
-
+import { AssignBrokersComponent } from './assign-brokers/assign-brokers.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { DataTablesModule } from 'angular-datatables';
 @NgModule({
   imports: [
     CommonModule,
     ProjectRoutingModule,
     ModalModule.forRoot(),
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    DataTablesModule
   ],
-  declarations: [ProjectComponent, AddProjectComponent],
+  declarations: [ProjectComponent, AddProjectComponent, AssignBrokersComponent],
 })
 export class ProjectModule { }

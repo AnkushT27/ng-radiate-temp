@@ -23,6 +23,14 @@ export class ProjectService {
     return this.http.get(`${environment.baseURL}/projects/${id}`)
   }
 
+  getAssignedBrokers(){
+    return this.http.get(`${environment.baseURL}/projects/activated_brokers`)
+  }
+
+  getAllBrokers(){
+    return this.http.get(`${environment.baseURL}/projects/all_brokers`)
+  }
+
   updateProject(payload){
     return this.http.post('',payload)
   }

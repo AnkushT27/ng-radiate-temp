@@ -28,9 +28,27 @@ export class ProjectComponent implements OnInit {
     this.route.navigate([`/editproject/${id}`]):this.route.navigate(['/addproject'])
   }
 
+  goToAssignBroker(value:String){
+    this.shared.setSharedVariable(value);
+    this.route.navigate([`/assign-broker`])
+  }
+
   getProjects(){
-    this.project.getProjects().subscribe((res:any)=>{
-       this.projects = res.radiate_projects_data;
+    this.project.getProjects().subscribe(({radiate_projects_data}:any)=>{
+       //this.projects = radiate_projects_data;
+    },(err)=>{
+      this.projects = [
+        {
+         id:"1",
+         title:"Godrej Skyline",
+         locality_name:"Thane",
+         possesion:"2021",
+         knowledge:"TEST",
+         budget:")-0",
+         status:"Test",
+         website:"Test"
+        }
+      ]
     });
   }
 

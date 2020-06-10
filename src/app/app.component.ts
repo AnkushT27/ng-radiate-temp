@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SideMenuService } from './side-menu.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,10 +11,13 @@ export class AppComponent {
   title = 'ng-radiate';
   menu:boolean =false;
   subscription:Subscription;
-  constructor(private sidemenuService:SideMenuService){}
+  constructor(private sidemenuService:SideMenuService,private router:Router){}
 
   ngOnInit() {
     this.subscription = this.sidemenuService.Item$
       .subscribe(item => {this.menu = item.menu;})
+      if(localStorage.getItem('token')){
+        this.router.navigate(['/leads']);
+      }
   }
 }

@@ -15,7 +15,7 @@
           <div class="card-body">
             
             <div class="lead-container">
-              <form novalidate (ngSubmit)="addProjectData(addProjectForm)" [formGroup]="addProjectForm" autocomplete="off">
+              <form novalidate (ngSubmit)="editFlag ? updateProjectData(addProjectForm): addProjectData(addProjectForm)" [formGroup]="addProjectForm" autocomplete="off">
                 <div class="row">
                   <div class="col-md-12">
                     <div class="row">

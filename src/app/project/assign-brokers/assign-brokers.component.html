@@ -1,0 +1,189 @@
+<div class="main">
+  <section>
+     <div class="container-fluid">
+        <div class="row">
+           <div class="col-md-12 p-0">
+              <div class="card">
+                 <div class="card-header">
+                    <div class="row">
+                       <div class="col-md-7">
+                          <h1>{{projectTitle}}</h1>
+                       </div>
+                       <div class="col-md-5">
+                          <div class="input-group search-header">
+                             <img src="images/search_icon.svg" alt="">
+                             <input type="text" class="form-control" placeholder="Search by Name" aria-label="Search Name, Email or Phone" aria-describedby="button-addon2">
+                             <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+                             </div>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+                 <div class="card-body">
+                    <div class="lead-container">
+                       <form action="">
+                          <div class="row">
+                             <div class="col-md-12">
+                                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                   <li class="nav-item">
+                                      <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true" (click)="getAssignedBroker()">Assigned Brokers</a>
+                                   </li>
+                                   <li class="nav-item">
+                                      <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false" (click)="getAllBrokers()">All Brokers</a>
+                                   </li>
+                                </ul>
+                                <div class="tab-content" id="pills-tabContent">
+                                   <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                      <table id="dataTablesAll" class="table table-borderless table-hover dataTables" datatable [dtOptions]="brokerTableOptions" [dtTrigger]="brokerTableTriggerAll">
+                                      <thead>
+                                         <tr>
+                                            <th>Name</th>
+                                            <th>Firm Name</th>
+                                            <th>Mobile</th>
+                                            <th>Email</th>
+                                            <th>LeadCount</th>
+                                            <th>VisitedClients</th>
+                                            <th>BookedClients</th>
+                                            <th>Relationship Manager</th>
+                                            <th>Actions</th>
+                                         </tr>
+                                      </thead>
+                                      <tbody>
+                                         <tr  *ngFor="let broker of response;let i=index">
+                                            <td>{{broker.name}}</td>
+                                            <td>{{broker.firmname}}</td>
+                                            <td>{{broker.mobile}}</td>
+                                            <td>{{broker.email}}</td>
+                                            <td>{{broker.leadCount}}</td>
+                                            <td>{{broker.visitedClients}}</td>
+                                            <td>{{broker.bookedClients}}</td>
+                                            <td>{{broker.relationshipManager}}</td>
+                                            <td><a href="#" (click)="openBrokerDetails(editBroker,broker.id)">Edit</a></td>
+                                         </tr>
+                                      </tbody>
+                                      </table>
+                                   </div>
+                                   <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                      <table id="dataTablesBlack" class="table table-borderless table-hover dataTables" datatable [dtOptions]="brokerTableOptions" [dtTrigger]="brokerTableTriggerBlack">
+                                      <thead>
+                                         <tr >
+                                            <th>Name</th>
+                                            <th>Firm Name</th>
+                                            <th>Mobile</th>
+                                            <th>Email</th>
+                                            <th>Status</th>
+                                            <th>Next Call Date</th>
+                                            <th>Comments</th>
+                                            <th>Actions</th>
+                                         </tr>
+                                      </thead>
+                                      <tbody>
+                                         <tr *ngFor="let broker of response;let i=index">
+                                            <td>{{broker.name}}</td>
+                                            <td>{{broker.firmname}}</td>
+                                            <td>{{broker.mobile}}</td>
+                                            <td>{{broker.email}}</td>
+                                            <td>{{broker.status}}</td>
+                                            <td>{{broker.ncd}}</td>
+                                            <td>{{broker.comments}}</td>
+                                            <td><a href="#" (click)="openBrokerDetails(editBroker,broker.id)">Edit</a></td>
+                                         </tr>
+                                      </tbody>
+                                      </table>
+                                   </div>
+                                </div>
+                             </div>
+                          </div>
+                       </form>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+  </section>
+</div>
+<ng-template #editBroker>
+  <!-- Modal -->
+  <div class="modal fade" id="viewLead" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered custom-modal" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="exampleModalLabel">Broker Details</h5>
+           <button type="button" class="close" data-dismiss="modal" (click)="closeModal()" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <form novalidate (ngSubmit)="assignBroker()" [formGroup]="editBrokerForm" autocomplete="off">
+           <div class="row">
+              <div class="col-md-2">
+                 <div class="form-group">
+                    <span class="lead-title">Name</span>
+                    <span class="lead-info">Ayush Jain</span>
+                 </div>
+              </div>
+              <div class="col-md-2">
+                 <div class="form-group">
+                    <span class="lead-title">Firm Name</span>
+                    <span class="lead-info">A1 Properties</span>
+                 </div>
+              </div>
+              <div class="col-md-2">
+                 <div class="form-group">
+                    <span class="lead-title">Mobile Number</span>
+                    <span class="lead-info">970025401</span>
+                 </div>
+              </div>
+              <div class="col-md-2">
+                 <div class="form-group">
+                    <span class="lead-title">Email</span>
+                    <span class="lead-info">email007ail.com</span>
+                 </div>
+              </div>
+              <div class="col-md-2">
+                 <div class="form-group">
+                    <label for="formGroupExampleInput">Status</label>
+                    <select class="form-control" formControlName="status">
+                       <option selected>Select</option>
+                       <option value="1">New</option>
+                       <option value="2">Old</option>
+                       <option value="2">Sold Out</option>
+                       <option value="2">Fast Filing</option>
+                    </select>
+                    <span class="error" *ngIf="(editBrokerForm.get('status').hasError('required') && editBrokerForm.get('status').touched)">
+                    This field is mandatory
+                    </span>
+                 </div>
+              </div>
+           </div>
+              <div class="row">
+                 <div class="col-md-3">
+                    <input [owlDateTime]="ncd" [owlDateTimeTrigger]="ncd"  placeholder="Next Call Date" class="form-control" formControlName="ncd">
+                    <owl-date-time [pickerType]="calendar" #ncd></owl-date-time>
+                    <span class="error" *ngIf="(editBrokerForm.get('ncd').hasError('required') && editBrokerForm.get('ncd').touched)">
+                    This field is mandatory
+                    </span>
+                 </div>
+                 <div class="col-md-3">
+                    <div class="form-group">
+                       <label for="formGroupExampleInput">Comments</label>
+                       <textarea type="text" class="form-control" rows="30" cols="20"  placeholder="Enter comments"  formControlName="comments"></textarea>
+                       <span class="error" *ngIf="(editBrokerForm.get('comments').hasError('required') && editBrokerForm.get('comments').touched)">
+                       This field is mandatory
+                       </span>
+                    </div>
+                 </div>
+                 <div class="col-md-6">
+                    <div class="form-group text-right">
+                       <button class="btn btn-secondary btn-sm mt-4" type="submit"  [disabled]='!editBrokerForm.valid'>Assign Broker</button>
+                    </div>
+                 </div>
+              </div>
+              </form>
+           </div>
+        </div>
+     </div>
+  </div>
+</ng-template>
