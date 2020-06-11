@@ -10,11 +10,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ProjectModule} from './project/project.module';
 import { ToastrModule } from 'ngx-toastr';
 import {AuthGuardService} from './auth-guard/auth-guard'
+import {ModalModule } from 'ngx-bootstrap'
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    ModalModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     SharedModule,

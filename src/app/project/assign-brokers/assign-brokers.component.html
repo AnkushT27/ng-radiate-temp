@@ -33,6 +33,7 @@
                                       <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false" (click)="getAllBrokers()">All Brokers</a>
                                    </li>
                                 </ul>
+                                <a [routerLink]="" (click)="openBrokerDetails(editBroker,1)">Edit</a>
                                 <div class="tab-content" id="pills-tabContent">
                                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                                       <table id="dataTablesAll" class="table table-borderless table-hover dataTables" datatable [dtOptions]="brokerTableOptions" [dtTrigger]="brokerTableTriggerAll">
@@ -59,7 +60,7 @@
                                             <td>{{broker.visitedClients}}</td>
                                             <td>{{broker.bookedClients}}</td>
                                             <td>{{broker.relationshipManager}}</td>
-                                            <td><a href="#" (click)="openBrokerDetails(editBroker,broker.id)">Edit</a></td>
+                                            <td><a [routerLink]="" (click)="openBrokerDetails(editBroker,broker.id)">Edit</a></td>
                                          </tr>
                                       </tbody>
                                       </table>
@@ -87,7 +88,7 @@
                                             <td>{{broker.status}}</td>
                                             <td>{{broker.ncd}}</td>
                                             <td>{{broker.comments}}</td>
-                                            <td><a href="#" (click)="openBrokerDetails(editBroker,broker.id)">Edit</a></td>
+                                            <td><a [routerLink]="" (click)="openBrokerDetails(editBroker,broker.id)">Edit</a></td>
                                          </tr>
                                       </tbody>
                                       </table>
@@ -161,7 +162,7 @@
               <div class="row">
                  <div class="col-md-3">
                     <input [owlDateTime]="ncd" [owlDateTimeTrigger]="ncd"  placeholder="Next Call Date" class="form-control" formControlName="ncd">
-                    <owl-date-time [pickerType]="calendar" #ncd></owl-date-time>
+                    <owl-date-time [pickerType]="'calendar'" #ncd></owl-date-time>
                     <span class="error" *ngIf="(editBrokerForm.get('ncd').hasError('required') && editBrokerForm.get('ncd').touched)">
                     This field is mandatory
                     </span>
@@ -169,7 +170,7 @@
                  <div class="col-md-3">
                     <div class="form-group">
                        <label for="formGroupExampleInput">Comments</label>
-                       <textarea type="text" class="form-control" rows="30" cols="20"  placeholder="Enter comments"  formControlName="comments"></textarea>
+                       <textarea type="text" class="form-control"   placeholder="Enter comments"  formControlName="comments"></textarea>
                        <span class="error" *ngIf="(editBrokerForm.get('comments').hasError('required') && editBrokerForm.get('comments').touched)">
                        This field is mandatory
                        </span>
@@ -185,5 +186,5 @@
            </div>
         </div>
      </div>
-  </div>
+   </div>
 </ng-template>

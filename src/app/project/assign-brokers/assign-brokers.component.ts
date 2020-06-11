@@ -16,7 +16,7 @@ export class AssignBrokersComponent implements OnInit {
     animated: true,
     keyboard: false,
     backdrop: true,
-    ignoreBackdropClick: false
+    ignoreBackdropClick: true
   };
   modalRef: BsModalRef;
   responses:any;
@@ -47,6 +47,7 @@ export class AssignBrokersComponent implements OnInit {
   }
 
   assignBroker(){
+    
     console.log(this.editBrokerForm.value)
   }
   
