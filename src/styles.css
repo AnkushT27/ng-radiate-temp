@@ -559,6 +559,7 @@ margin-bottom: 50px;
 }
 
 .btn.btn-project {
+	margin-left: 8px;
     font-size: 12px;
     background: #4C8BD4;
     letter-spacing: 1.03px;
@@ -662,4 +663,7 @@ margin-bottom: 50px;
     opacity: 1;
     font-size: 14px;
     border-bottom: 2px solid;
+}
+.cdk-global-overlay-wrapper, .cdk-overlay-container {
+    z-index: 99999 !important;
 }

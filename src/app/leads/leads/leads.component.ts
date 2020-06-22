@@ -28,7 +28,12 @@ export class LeadsComponent implements OnInit {
   response:any;
   leadTableOptions: DataTables.Settings = {};
   leadTableTrigger: Subject<any> = new Subject();
+  projectListTableOptions: DataTables.Settings = {};
+  projectListTableTrigger: Subject<any> = new Subject();
   dtElement: DataTableDirective;
+  projectIdArray: any = [];
+  universalCheckedProject: boolean;
+  projects: any = [];
  
   constructor(private sidemenuservice : SideMenuService,private modalService : BsModalService,private leadservice:LeadsService) {
     this.addClassesForBody();
@@ -40,7 +45,13 @@ export class LeadsComponent implements OnInit {
       lengthMenu: [[5, 10, 20, 50,-1],
       [5, 10, 20, 50,"All" ]]
     };
-
+    this.projectListTableOptions = {
+      searching:false,
+      pagingType: 'full_numbers',
+      lengthMenu: [[5, 10, 20, 50,-1],
+      [5, 10, 20, 50,"All" ]]
+    };
+    
   }
 
   ngOnInit() {
@@ -60,15 +71,17 @@ export class LeadsComponent implements OnInit {
     }
     console.log('lead',this.leadIdArray)
   }
+ 
 
-  viewProject(template:TemplateRef<any>,id){
-    this.modalRef = this.modalService.show(template,this.config);
+  viewProjectList(template:TemplateRef<any>,id){
     this.getLead(id);
+    this.modalRef = this.modalService.show(template,this.config);
+   
    }
 
    sendMailToLead(){
     const data = {
-      projectID:this.leadIdArray,
+      leadId:this.leadIdArray,
       userId:localStorage.getItem('user_id')
     }
     this.leadservice.sendMail(data
@@ -76,6 +89,19 @@ export class LeadsComponent implements OnInit {
        console.log('res',res);
    })
   }
+
+  sendBulkMailToLead(){
+    const data = {
+      projectID:this.projectIdArray,
+      leadId:this.leadIdArray,
+      userId:localStorage.getItem('user_id')
+    }
+    this.leadservice.sendMail(data
+     ).subscribe((res:any)=>{
+       console.log('res',res);
+   })
+  }
+
 
    pushLeadID(id:string){
      this.universalChecked =false;
@@ -89,6 +115,18 @@ export class LeadsComponent implements OnInit {
    }
   console.log(this.leadIdArray)
   }
+
+  pushProjectID(id:string){
+  if(this.projectIdArray.length == 0){
+  this.projectIdArray.push(id)
+   }
+   else
+   {
+  let idPresent =  this.projectIdArray.findIndex((data)=>data == id)
+   idPresent!=-1 ? this.projectIdArray.splice(idPresent,1):this.projectIdArray.push(id);
+  }
+   console.log(this.projectIdArray)
+   }
 
   isLeadPresent(id:String){
    if(this.leadIdArray.length == 0){
@@ -108,14 +146,23 @@ export class LeadsComponent implements OnInit {
     this.responses=[];
      this.leadservice.leads(this.searchString).subscribe(({radiate_b_leads}:any)=>{
      this.responses = radiate_b_leads;
-      $('#DataTables').DataTable().destroy();
-       this.leadTableTrigger.next();
+     $('#DataTables').DataTable().destroy();
+     this.leadTableTrigger.next();
      })
   }
 
    getLead(index){
     this.leadservice.getEachLead(index).subscribe((res:any)=>{
       this.response = res
+    },(err)=>{
+      console.log('err',err)
+      this.projects = [{
+        id:10,
+        name:"test",
+        location:"test-loc"
+      }]
+      $('#DataTables-Project').DataTable().destroy();
+      this.projectListTableTrigger.next();
     })
    }
 
