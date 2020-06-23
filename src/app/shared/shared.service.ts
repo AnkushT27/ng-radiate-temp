@@ -15,14 +15,7 @@ export class SharedService {
       'budget': '[+-]?([0-9]*[.])?[0-9]+'
     }
    }
-   getSharedVariable(){
-     return this.shared;
-   }
-
-   setSharedVariable(value){
-     this.shared = value;
-  }
-
+   
    getValidator(value){
      return this.validators[value];
    }

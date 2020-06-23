@@ -24,7 +24,7 @@ export class AssociateBrokerComponent implements OnInit {
   brokerTableTriggerBlack: Subject<any> = new Subject();
   
   constructor(private sidemenuservice : SideMenuService,private modalService : BsModalService,private brokerService:AssociateBrokerService) { 
-    this.sidemenuservice.changeNav({'menu':true});
+    // this.sidemenuservice.changeNav({'menu':true});
     this.getActiveBroker();
    this.brokerTableOptions = {
       searching:false,

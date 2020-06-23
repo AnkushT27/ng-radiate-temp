@@ -27,9 +27,9 @@ export class AssignBrokersComponent implements OnInit {
   editBrokerForm: FormGroup;
   projectTitle:string;
   constructor(private sidemenuservice : SideMenuService,private modalService : BsModalService,private projectService:ProjectService,private shared : SharedService) { 
-    this.sidemenuservice.changeNav({'menu':true});
+    // this.sidemenuservice.changeNav({'menu':true});
     this.getAssignedBroker();
-    this.projectTitle = this.shared.getSharedVariable();
+    this.sidemenuservice.Value$.subscribe((data)=>{this.projectTitle = data})
     this.editBrokerForm = new FormGroup({
       status: new FormControl('', [Validators.required]),
       ncd: new FormControl('', [Validators.required]),

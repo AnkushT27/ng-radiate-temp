@@ -15,7 +15,7 @@ export class ProjectComponent implements OnInit {
   viewProject:any;
  
   constructor(private route:Router,private sidemenuservice:SideMenuService, private shared:SharedService,private project:ProjectService) {
-    this.sidemenuservice.changeNav({'menu':true});
+    //this.sidemenuservice.changeNav({'menu':true});
     this.getProjects();
   
    }
@@ -29,7 +29,7 @@ export class ProjectComponent implements OnInit {
   }
 
   goToAssignBroker(value:String){
-    this.shared.setSharedVariable(value);
+    this.sidemenuservice.changeValue(value)
     this.route.navigate([`/assign-broker`])
   }
 
