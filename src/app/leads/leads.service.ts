@@ -18,6 +18,6 @@ export class LeadsService {
   }
 
   sendMail(data){
-    return this.http.post(`${environment.baseURL}/leads`,data)
+    return this.http.post(`${environment.baseURL}/leads/send_project_information`,data)
   }
 }

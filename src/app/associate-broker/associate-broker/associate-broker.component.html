@@ -49,13 +49,13 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr  *ngFor="let broker of response;let i=index">
-                                <td>{{broker.name}}</td>
-                                <td>{{broker.firmname}}</td>
-                                <td>{{broker.mobile}}</td>
-                                <td>{{broker.email}}</td>
-                                <td><a href="">{{broker.activeProjects}}</a></td>
-                                <td class="font-weight-bold">Blacklist</td>
+                              <tr  *ngFor="let broker of responseAllBroker;let i=index">
+                                <td>{{broker.broker_name}}</td>
+                                <td>{{broker.broker_firm_name}}</td>
+                                <td>{{broker.broker_contact_number}}</td>
+                                <td>{{broker.broker_email}}</td>
+                                <td><a href="" [routerLink]=""  (click)="goToActiveProjects()">{{broker.activeProjects}}</a></td>
+                                <td class="font-weight-bold" (click)="blackListBroker()"><span>Blacklist</span></td>
                               </tr>
                              </tbody>
                             
@@ -74,7 +74,7 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr *ngFor="let broker of response;let i=index">
+                              <tr *ngFor="let broker of responseBlackListedBroker;let i=index">
                                 <td>{{broker.name}}</td>
                                 <td>{{broker.firmname}}</td>
                                 <td>{{broker.mobile}}</td>

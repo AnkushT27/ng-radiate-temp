@@ -12,6 +12,8 @@ import { ActivatedRoute } from '@angular/router';
 export class AddProjectComponent implements OnInit {
   addProjectForm:FormGroup
   editFlag: boolean;
+  projectTitle:String;
+  locality:String;
   constructor(private sidemenuservice:SideMenuService, private shared:SharedService,private project:ProjectService,private route:ActivatedRoute) {
     this.sidemenuservice.changeNav({'menu':true});
     this.addProjectForm = new FormGroup({
@@ -39,15 +41,17 @@ export class AddProjectComponent implements OnInit {
   addProjectData(addprojectForm:FormGroup){
     console.log(this.addProjectForm.value)
     var projectpayload={
+      radiate_project:{
       "title":addprojectForm.value.name,
       "description":"No description",
       "other_info": "No other info",
       "website":addprojectForm.value.website,
       "status_id":addprojectForm.value.status,
-      "budget_from":addprojectForm.value.budgetFrom,
-      "budget_upto":addprojectForm.value.budgetTo,
+      "budget_from":addprojectForm.value.budgetFrom+addprojectForm.value.budgetFromUnit,
+      "budget_upto":addprojectForm.value.budgetTo+addprojectForm.value.budgetToUnit,
       "builder_id":localStorage.getItem('user_id'),
       "locality_id":"0",
+      }
     }
      this.project.addProject(projectpayload).subscribe((res:any)=>{
        console.log(res)
@@ -56,17 +60,19 @@ export class AddProjectComponent implements OnInit {
 
   showProject(id){
     this.project.getProjectDetails(id).subscribe((res:any)=>{
-   
-    },(error)=>{
-      this.addProjectForm.controls['name'].setValue('test');
-      this.addProjectForm.controls['location'].setValue('test');
-      this.addProjectForm.controls['budgetFrom'].setValue(1);
-      this.addProjectForm.controls['budgetTo'].setValue(2);
-      this.addProjectForm.controls['possesion'].setValue('test');
-      this.addProjectForm.controls['website'].setValue('test');
-      this.addProjectForm.controls['knowledge'].setValue('test');
-      this.addProjectForm.controls['status'].setValue('test');
+      this.projectTitle = res.title;
+      this.locality = res.locality;
+      this.addProjectForm.controls['name'].setValue(res.title);
+      this.addProjectForm.controls['location'].setValue(res.locality);
+      this.addProjectForm.controls['budgetFrom'].setValue(res.budget_from);
+      this.addProjectForm.controls['budgetTo'].setValue(res.budget_upto);
+      this.addProjectForm.controls['possesion'].setValue(res.posession_year);
+      this.addProjectForm.controls['website'].setValue(res.website);
+      this.addProjectForm.controls['knowledge'].setValue(res.knowledge_center);
+      this.addProjectForm.controls['status'].setValue(res.status);
     });
+    
+   
   }
 
   updateProjectData(addprojectForm:FormGroup){

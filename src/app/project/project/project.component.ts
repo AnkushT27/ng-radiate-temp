@@ -15,16 +15,15 @@ export class ProjectComponent implements OnInit {
   viewProject:any;
  
   constructor(private route:Router,private sidemenuservice:SideMenuService, private shared:SharedService,private project:ProjectService) {
-    //this.sidemenuservice.changeNav({'menu':true});
+    this.sidemenuservice.changeNav({'menu':true});
     this.getProjects();
-  
-   }
+  }
 
   ngOnInit() {
   }
 
   goToAddProject(id){
-     (id != 0)? 
+    (id != 0)? 
     this.route.navigate([`/editproject/${id}`]):this.route.navigate(['/addproject'])
   }
 
@@ -35,20 +34,7 @@ export class ProjectComponent implements OnInit {
 
   getProjects(){
     this.project.getProjects().subscribe(({radiate_projects_data}:any)=>{
-       //this.projects = radiate_projects_data;
-    },(err)=>{
-      this.projects = [
-        {
-         id:"1",
-         title:"Godrej Skyline",
-         locality_name:"Thane",
-         possesion:"2021",
-         knowledge:"TEST",
-         budget:")-0",
-         status:"Test",
-         website:"Test"
-        }
-      ]
+       this.projects = radiate_projects_data;
     });
   }
 

@@ -7,7 +7,7 @@
           <div class="card-header editProject">
             <div class="row">
               <div class="col-md-7">
-                <h1>Godrej Skyline <span class="location">Mulund</span></h1>
+                <h1>{{projectTitle}} <span class="location">{{locality}}</span></h1>
               </div>
               
             </div>
@@ -74,11 +74,11 @@
                           <label for="formGroupExampleInput">Possession</label>
                           <select class="form-control" formControlName="possesion">
                             <option selected>Select</option>
-                            <option value="1">2022</option>
-                            <option value="2">2021</option>
-                            <option value="2">2020</option>
-                            <option value="2">2019</option>
-                            <option value="2">2018</option>
+                            <option value="2022">2022</option>
+                            <option value="2021">2021</option>
+                            <option value="2020">2020</option>
+                            <option value="2019">2019</option>
+                            <option value="2018">2018</option>
                           </select>
                           <span class="error" *ngIf="(addProjectForm.get('possesion').hasError('required') && addProjectForm.get('possesion').touched)">
                             This field is mandatory
@@ -90,10 +90,10 @@
                           <label for="formGroupExampleInput">Status</label>
                           <select class="form-control" formControlName="status">
                             <option selected>Select</option>
-                            <option value="1">New</option>
-                            <option value="2">Old</option>
-                            <option value="2">Sold Out</option>
-                            <option value="2">Fast Filing</option>
+                            <option value="New">New</option>
+                            <option value="Old">Old</option>
+                            <option value="Sold Out">Sold Out</option>
+                            <option value="Fast Filing">Fast Filing</option>
                           </select>
                           <span class="error" *ngIf="(addProjectForm.get('status').hasError('required') && addProjectForm.get('status').touched)">
                             This field is mandatory

@@ -39,12 +39,12 @@
                       <div class="row">
                         <div class="col-md-4">
                           <span class="grid-details">
-                            <span class="light-text">Possession:</span>{{project.possesion}}
+                            <span class="light-text">Possession:</span>{{project.posession}}
                           </span>
                         </div>
                         <div class="col-md-4">
                           <span class="grid-details">
-                            <span class="light-text">Knowledge Centre:</span>{{project.knowledge}}
+                            <span class="light-text">Knowledge Centre:</span>{{project.knowledge_center}}
                           </span>
                         </div>
                          <div class="w-100"></div>
@@ -77,7 +77,7 @@
                            </div>
                             <div class="col-md-12 text-right">
                            <span class="grid-details">
-                            <a  class="text-link" [routerLink]=""  (click)="goToAssignBroker('Godrej Skyline')">Assign Broker</a>
+                            <a  class="text-link" [routerLink]=""  (click)="goToAssignBroker(project.title)">Assign Broker</a>
                           </span>
                         </div>
                       </div>

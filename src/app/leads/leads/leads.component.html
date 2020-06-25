@@ -53,7 +53,7 @@
                     <td>{{lead.status_name}}</td>
                     <td>{{lead.ncd}}</td>
                     <td>
-                      <a href="" class="btn-action" data-toggle="modal" data-target="#viewLead" (click)="viewProject(viewLead,lead.id)"><img src="../../../assets/images/icons8-edit.svg" alt=""></a>
+                      <a href="" class="btn-action" data-toggle="modal" data-target="#viewLead" (click)="viewProjectData(viewLead,lead.id)"><img src="../../../assets/images/icons8-edit.svg" alt=""></a>
                       <a href="" class="btn-action"><img src="../../../assets/images/bin.svg" alt=""></a></td>
                     </tr>
                     
@@ -226,8 +226,8 @@
     </thead>
     <tbody >
       <tr *ngFor="let project of projects;let i=index">
-        <td>{{project.name}}</td>
-        <td>{{project.location}}</td>
+        <td>{{project.title}}</td>
+        <td>{{project.locality_name}}</td>
         <td><a><span style="color: #4C8BD4;" (click)="goToProjectDetails(project.id)">View More</span></a></td>
         <td><input type="checkbox"  (change)="pushProjectID(project.id)"></td>
       </tr>

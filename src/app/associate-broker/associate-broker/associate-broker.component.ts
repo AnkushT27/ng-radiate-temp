@@ -18,13 +18,14 @@ export class AssociateBrokerComponent implements OnInit {
   };
   modalRef: BsModalRef;
   responses:any;
-  response:any;
+  responseAllBroker:any = [];
+  responseBlackListedBroker:any = [];
   brokerTableOptions: DataTables.Settings = {};
   brokerTableTriggerAll: Subject<any> = new Subject();
   brokerTableTriggerBlack: Subject<any> = new Subject();
   
   constructor(private sidemenuservice : SideMenuService,private modalService : BsModalService,private brokerService:AssociateBrokerService) { 
-    // this.sidemenuservice.changeNav({'menu':true});
+    this.sidemenuservice.changeNav({'menu':true});
     this.getActiveBroker();
    this.brokerTableOptions = {
       searching:false,
@@ -47,23 +48,32 @@ export class AssociateBrokerComponent implements OnInit {
    }
 
    getActiveBroker(){
-     this.response=[]
-    this.brokerService.getActiveBrokers().subscribe((res:any)=>{
-        this.response=res.radiate_p_brokers;
-        $('#dataTablesAll').DataTable().destroy();
-        this.brokerTableTriggerAll.next()
+     this.responseAllBroker=[]
+     $('#dataTablesAll').DataTable().destroy();
+    this.brokerService.getActiveBrokers().subscribe(({radiate_p_brokers}:any)=>{
+       this.responseAllBroker=radiate_p_brokers;
+       $('#dataTablesAll').DataTable().destroy();
+       this.brokerTableTriggerAll.next()
 
     })
   }
 
   getBlacklistedBroker(){
-    this.response=[]
-   this.brokerService.getBlacklistedBrokers().subscribe((res:any)=>{
-       this.response=res.radiate_blacklisted_brokers;
+    this.responseBlackListedBroker=[]
+   this.brokerService.getBlacklistedBrokers().subscribe(({radiate_p_brokers}:any)=>{
+       this.responseBlackListedBroker=radiate_p_brokers;
        $('#dataTablesBlack').DataTable().destroy();
        this.brokerTableTriggerBlack.next()
 
    })
+ }
+
+ blackListBroker(){
+
+ }
+
+ goToActiveProjects(){
+
  }
     
 }

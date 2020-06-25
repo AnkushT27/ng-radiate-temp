@@ -11,13 +11,21 @@ export class AppComponent {
   title = 'ng-radiate';
   menu:boolean =false;
   subscription:Subscription;
-  constructor(private sidemenuService:SideMenuService,private router:Router){}
+  constructor(private sidemenuservice:SideMenuService,private router:Router){}
 
   ngOnInit() {
-    this.subscription = this.sidemenuService.Item$
-      .subscribe(item => {this.menu = item.menu;})
-      if(localStorage.getItem('token')){
-        this.router.navigate(['/leads']);
-      }
+    this.subscription = this.sidemenuservice.Item$
+      .subscribe(item => {
+        this.menu = item.menu;
+        if(localStorage.getItem('token')){
+          let path = window.location.pathname
+          this.sidemenuservice.changeMenu([path]);
+          $('body').addClass('cbp-spmenu-push');
+          $('body').addClass('cbp-spmenu-push-toright');
+          this.router.navigate([`/${path}`]);
+        }
+      
+      })
+     
   }
 }

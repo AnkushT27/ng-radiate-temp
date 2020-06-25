@@ -4,6 +4,7 @@ import {BsModalService,BsModalRef} from 'ngx-bootstrap/modal';
 import {Subject} from 'rxjs';
 import { LeadsService } from '../leads.service';
 import { DataTableDirective } from 'angular-datatables';
+import { ProjectService } from 'src/app/project/project.service';
 
 
 @Component({
@@ -35,8 +36,8 @@ export class LeadsComponent implements OnInit {
   universalCheckedProject: boolean;
   projects: any = [];
  
-  constructor(private sidemenuservice : SideMenuService,private modalService : BsModalService,private leadservice:LeadsService) {
-    this.addClassesForBody();
+  constructor(private sidemenuservice : SideMenuService,private modalService : BsModalService,private leadservice:LeadsService,private projectService:ProjectService) {
+    //this.addClassesForBody();
     this.sidemenuservice.changeNav({'menu':true});
     this.getLeads();
     this.leadTableOptions = {
@@ -45,7 +46,7 @@ export class LeadsComponent implements OnInit {
       lengthMenu: [[5, 10, 20, 50,-1],
       [5, 10, 20, 50,"All" ]]
     };
-    this.projectListTableOptions = {
+    this.projectListTableOptions = { 
       searching:false,
       pagingType: 'full_numbers',
       lengthMenu: [[5, 10, 20, 50,-1],
@@ -74,15 +75,29 @@ export class LeadsComponent implements OnInit {
  
 
   viewProjectList(template:TemplateRef<any>,id){
+    this.getProjects();
+    this.modalRef = this.modalService.show(template,this.config);
+   
+   }
+   viewProjectData(template:TemplateRef<any>,id){
     this.getLead(id);
     this.modalRef = this.modalService.show(template,this.config);
    
    }
 
+   getProjects(){
+    this.projects = [];
+    this.projectService.getProjects().subscribe(({radiate_projects_data}:any)=>{
+      this.projects = radiate_projects_data;
+      $('#DataTables-Project').DataTable().destroy();
+      this.projectListTableTrigger.next();
+   });
+   }
+
    sendMailToLead(){
     const data = {
-      leadId:this.leadIdArray,
-      userId:localStorage.getItem('user_id')
+      lead_ids:this.leadIdArray,
+      user_id:localStorage.getItem('user_id')
     }
     this.leadservice.sendMail(data
      ).subscribe((res:any)=>{
@@ -92,9 +107,9 @@ export class LeadsComponent implements OnInit {
 
   sendBulkMailToLead(){
     const data = {
-      projectID:this.projectIdArray,
-      leadId:this.leadIdArray,
-      userId:localStorage.getItem('user_id')
+      project_ids:this.projectIdArray,
+      lead_ids:this.leadIdArray,
+      user_id:localStorage.getItem('user_id')
     }
     this.leadservice.sendMail(data
      ).subscribe((res:any)=>{
@@ -154,16 +169,8 @@ export class LeadsComponent implements OnInit {
    getLead(index){
     this.leadservice.getEachLead(index).subscribe((res:any)=>{
       this.response = res
-    },(err)=>{
-      console.log('err',err)
-      this.projects = [{
-        id:10,
-        name:"test",
-        location:"test-loc"
-      }]
-      $('#DataTables-Project').DataTable().destroy();
-      this.projectListTableTrigger.next();
     })
+    
    }
 
   addClassesForBody(){

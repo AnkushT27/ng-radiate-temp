@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {classie} from 'desandro-classie'
 import * as $ from 'jquery';
-import { SharedService } from '../shared.service';
+import {SideMenuService} from '../../side-menu.service'
 import { Router } from '../../../../node_modules/@angular/router';
+import { SharedService } from '../shared.service';
 @Component({
   selector: 'app-side-menu',
   templateUrl: './side-menu.component.html',
@@ -10,8 +11,8 @@ import { Router } from '../../../../node_modules/@angular/router';
 })
 export class SideMenuComponent implements OnInit {
   menuArray:any=[];
-  constructor(private shared:SharedService,private router:Router) {
-    this.menuArray = [
+  constructor(private shared:SharedService,private sidemenuservice:SideMenuService,private router:Router) {
+   this.menuArray = [
       {
          "state":true
       },
@@ -25,6 +26,11 @@ export class SideMenuComponent implements OnInit {
    }
 
   ngOnInit() {
+   this.sidemenuservice.menuSource$.subscribe((data)=>{
+     if(data!=-1){
+       this.menuClicked(data)
+     }
+   })
   }
 
   logout(){

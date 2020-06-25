@@ -33,7 +33,7 @@ export class Interceptor implements HttpInterceptor {
 	          if (event instanceof HttpResponse) {
                 // http response status code
                 this.spinner.hide()
-	            console.log(event.status);
+	            console.log(event);
 	          }
 	        }, error => {
                 this.spinner.hide()
