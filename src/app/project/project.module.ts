@@ -7,6 +7,7 @@ import { AddProjectComponent } from './add-project/add-project.component';
 import { AssignBrokersComponent } from './assign-brokers/assign-brokers.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { DataTablesModule } from 'angular-datatables';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   imports: [
     CommonModule,
@@ -15,7 +16,8 @@ import { DataTablesModule } from 'angular-datatables';
     FormsModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    DataTablesModule
+    DataTablesModule,
+    NgxPaginationModule
   ],
   declarations: [ProjectComponent, AddProjectComponent, AssignBrokersComponent],
 })

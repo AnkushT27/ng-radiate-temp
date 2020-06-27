@@ -8,11 +8,11 @@ export class AssociateBrokerService {
 
   constructor(private http:HttpClient) { }
 
-  getActiveBrokers(){
-   return this.http.get(`${environment.baseURL}/brokers`)
+  getActiveBrokers(page){
+   return this.http.get(`${environment.baseURL}/brokers?page=${page}`)
   }
 
-  getBlacklistedBrokers(){
-    return this.http.get(`${environment.baseURL}/brokers/blacklisted`)
+  getBlacklistedBrokers(page){
+    return this.http.get(`${environment.baseURL}/brokers/blacklisted?page=${page}`)
   }
 }

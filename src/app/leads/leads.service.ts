@@ -8,9 +8,9 @@ export class LeadsService {
 
   constructor(private http: HttpClient) { }
 
-  leads(searchString){
-    return searchString!=''?  this.http.get(`${environment.baseURL}/leads?search=${searchString}`):
-     this.http.get(`${environment.baseURL}/leads`);
+  leads(searchString,page){
+    return searchString!=''?  this.http.get(`${environment.baseURL}/leads?search=${searchString}&page=${page}`):
+     this.http.get(`${environment.baseURL}/leads?page=${page}`);
   }
 
   getEachLead(id){
@@ -19,5 +19,9 @@ export class LeadsService {
 
   sendMail(data){
     return this.http.post(`${environment.baseURL}/leads/send_project_information`,data)
+  }
+
+  deleteLead(id){
+     return this.http.delete(`${environment.baseURL}/leads/${id}`)
   }
 }

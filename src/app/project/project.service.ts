@@ -8,15 +8,15 @@ export class ProjectService {
 
   constructor(private http: HttpClient) { }
 
-  getProjects(){
-    return this.http.get(`${environment.baseURL}/projects`)
+  getProjects(page){
+    return this.http.get(`${environment.baseURL}/projects?page=${page}`)
   }
 
  getProjectData():any{
    return   }
 
-  addProject(payload){
-    return this.http.post(`${environment.baseURL}/projects`,payload)
+  addProject(payload,flag,id){
+    return (flag && id!=0) ?  this.http.post(`${environment.baseURL}/projects/${id}`,payload) : this.http.post(`${environment.baseURL}/projects`,payload)
   }
 
   getProjectDetails(id){

@@ -23,11 +23,12 @@ export class AssociateBrokerComponent implements OnInit {
   brokerTableOptions: DataTables.Settings = {};
   brokerTableTriggerAll: Subject<any> = new Subject();
   brokerTableTriggerBlack: Subject<any> = new Subject();
-  
+  totalCount:number;
+  currentPage:number = 1;
   constructor(private sidemenuservice : SideMenuService,private modalService : BsModalService,private brokerService:AssociateBrokerService) { 
     this.sidemenuservice.changeNav({'menu':true});
-    this.getActiveBroker();
    this.brokerTableOptions = {
+      paging:false,
       searching:false,
       pagingType: 'full_numbers',
       lengthMenu: [[5, 10, 20, 50,-1],
@@ -36,6 +37,7 @@ export class AssociateBrokerComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getActiveBroker(this.currentPage)
   }
 
   
@@ -47,22 +49,23 @@ export class AssociateBrokerComponent implements OnInit {
      this.modalRef.hide()
    }
 
-   getActiveBroker(){
+   getActiveBroker(page){
      this.responseAllBroker=[]
      $('#dataTablesAll').DataTable().destroy();
-    this.brokerService.getActiveBrokers().subscribe(({radiate_p_brokers}:any)=>{
+    this.brokerService.getActiveBrokers(page).subscribe(({radiate_p_brokers,total_count}:any)=>{
        this.responseAllBroker=radiate_p_brokers;
-       $('#dataTablesAll').DataTable().destroy();
+       this.totalCount = total_count;
        this.brokerTableTriggerAll.next()
 
     })
   }
 
-  getBlacklistedBroker(){
-    this.responseBlackListedBroker=[]
-   this.brokerService.getBlacklistedBrokers().subscribe(({radiate_p_brokers}:any)=>{
-       this.responseBlackListedBroker=radiate_p_brokers;
-       $('#dataTablesBlack').DataTable().destroy();
+  getBlacklistedBroker(page){
+    this.responseBlackListedBroker=[];
+    $('#dataTablesBlack').DataTable().destroy();
+   this.brokerService.getBlacklistedBrokers(page).subscribe(({radiate_blacklisted_brokers,total_count}:any)=>{
+       this.responseBlackListedBroker=radiate_blacklisted_brokers;
+       this.totalCount = total_count
        this.brokerTableTriggerBlack.next()
 
    })
