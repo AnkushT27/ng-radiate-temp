@@ -43,7 +43,7 @@
                   </tr>
                 </thead>
                 <tbody >
-                  <tr *ngFor="let lead of responses;let i=index">
+                  <tr *ngFor="let lead of responses | paginate: { id: 'server', itemsPerPage: 5, currentPage: currentPage, totalItems: totalLeads }">
                     <td><input type="checkbox"  *ngIf="!universalChecked" (change)="pushLeadID(lead.id)" [checked]="isLeadPresent(lead.id)">
                     <input type="checkbox"  [(ngModel)]="singleChecked" *ngIf="universalChecked" (change)="pushLeadID(lead.id)"></td>
                     <td>{{lead.name}}</td>
@@ -53,14 +53,12 @@
                     <td>{{lead.status_name}}</td>
                     <td>{{lead.ncd}}</td>
                     <td>
-                      <a href="" class="btn-action" data-toggle="modal" data-target="#viewLead" (click)="viewProjectData(viewLead,lead.id)"><img src="../../../assets/images/icons8-edit.svg" alt=""></a>
-                      <a href="" class="btn-action"><img src="../../../assets/images/bin.svg" alt=""></a></td>
+                      <a href="" class="btn-action" data-toggle="modal" data-target="#viewLead" (click)="viewLeadData(viewLead,lead.id)"><img src="../../../assets/images/icons8-edit.svg" alt=""></a>
+                      <a [routerLink]="" class="btn-action" (click)="deleteLead(lead.id)"><img src="../../../assets/images/bin.svg" alt=""></a></td>
                     </tr>
-                    
-                                  
-                                </tbody>
-                                
+                    </tbody>
                               </table>
+                              <pagination-controls (pageChange)="getLeads($event)" id="server"></pagination-controls>
                             </div>
                           </div>
                         </div>
@@ -86,55 +84,55 @@
                             <div class="col-md-2">
                               <div class="form-group">
                                 <span class="lead-title">Enquiry Number</span>
-                                <span class="lead-info">ENQ123538</span>
+                                <span class="lead-info">{{leadFields.lead_number || 'n/a'}}</span>
                               </div>
                             </div>
                             <div class="col-md-2">
                               <div class="form-group">
                                 <span class="lead-title">Full Name</span>
-                                <span class="lead-info">Ayush Jain</span>
+                                <span class="lead-info">{{leadFields.lead_name || 'n/a'}}</span>
                               </div>
                             </div>
                             <div class="col-md-2">
                               <div class="form-group">
                                 <span class="lead-title">Mobile Number</span>
-                                <span class="lead-info">970025401</span>
+                                <span class="lead-info">{{leadFields.lead_phone || 'n/a'}}</span>
                               </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-4">
                               <div class="form-group">
                                 <span class="lead-title">Primary Email</span>
-                                <span class="lead-info">email007ail.com</span>
+                                <span class="lead-info">{{leadFields.lead_email || 'n/a'}}</span>
                               </div>
                             </div>
                             <div class="col-md-2">
                               <div class="form-group">
                                 <span class="lead-title">Enquiry Source</span>
-                                <span class="lead-info">Website</span>
+                                <span class="lead-info">{{leadFields.lead_source || 'n/a' }}</span>
                               </div>
                             </div>
                             <div class="col-md-2">
                               <div class="form-group">
                                 <span class="lead-title">Location</span>
-                                <span class="lead-info">Kalyan</span>
+                                <span class="lead-info">{{leadFields.lead_location || 'n/a'}}</span>
                               </div>
                             </div>
                             <div class="col-md-2">
                               <div class="form-group">
                                 <span class="lead-title">Property Type</span>
-                                <span class="lead-info">ENQ123538</span>
+                                <span class="lead-info">{{leadFields.lead_number || 'n/a'}}</span>
                               </div>
                             </div>
                             <div class="col-md-2">
                               <div class="form-group">
                                 <span class="lead-title">Maximum Budget</span>
-                                <span class="lead-info">75L</span>
+                                <span class="lead-info">{{leadFields.lead_budegt || 'n/a'}}</span>
                               </div>
                             </div>
                             <div class="col-md-2">
                               <div class="form-group">
                                 <span class="lead-title">Enquired For</span>
-                                <span class="lead-info">Godrej Skyline</span>
+                                <span class="lead-info">{{leadFields.project_name || 'n/a'}}</span>
                               </div>
                             </div>
                           </div>
@@ -145,25 +143,25 @@
                             <div class="col-md-2">
                               <div class="form-group">
                                 <span class="lead-title">Enquiry Status</span>
-                                <span class="lead-info">Hot</span>
+                                <span class="lead-info">{{brokerLeaddata.broker_status || 'n/a'}}</span>
                               </div>
                             </div>
                             <div class="col-md-2">
                               <div class="form-group">
                                 <span class="lead-title">Next Action Date</span>
-                                <span class="lead-info">26/02/2020</span>
+                                <span class="lead-info">{{brokerLeaddata.broker_next_action_date || 'n/a'}}</span>
                               </div>
                             </div>
                             <div class="col-md-2">
                               <div class="form-group">
                                 <span class="lead-title">Assigned To</span>
-                                <span class="lead-info">A1 Enterprises</span>
+                                <span class="lead-info">{{brokerLeaddata.broker_name || 'n/a'}}</span>
                               </div>
                             </div>
                             <div class="col-md-12">
                               <div class="form-group">
                                 <span class="lead-title">Comment</span>
-                                <span class="lead-info">Very much interested in the property.</span>
+                                <span class="lead-info">{{brokerLeaddata.broker_comment || 'n/a'}}</span>
                               </div>
                             </div>
                           </div>
@@ -174,25 +172,25 @@
                             <div class="col-md-2">
                               <div class="form-group">
                                 <span class="lead-title">Enquiry Status</span>
-                                <span class="lead-info">New</span>
+                                <span class="lead-info">{{builderLeadData.builder_status || 'n/a'}}</span>
                               </div>
                             </div>
                             <div class="col-md-2">
                               <div class="form-group">
                                 <span class="lead-title">Next Action Date</span>
-                                <span class="lead-info">26/02/2020</span>
+                                <span class="lead-info">{{builderLeadData.lead_next_action_date || 'n/a'}}</span>
                               </div>
                             </div>
                             <div class="col-md-2">
                               <div class="form-group">
                                 <span class="lead-title">Assigned To</span>
-                                <span class="lead-info">Mayur Patil</span>
+                                <span class="lead-info">{{builderLeadData.assigned_to || 'n/a'}}</span>
                               </div>
                             </div>
                             <div class="col-md-12">
                               <div class="form-group">
                                 <span class="lead-title">Comment</span>
-                                <span class="lead-info">Very much interested in the property.</span>
+                                <span class="lead-info">{{builderLeadData.lead_comment || 'n/a'}}</span>
                               </div>
                             </div>
                           </div>

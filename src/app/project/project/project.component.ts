@@ -13,13 +13,15 @@ import { Router } from '../../../../node_modules/@angular/router';
 export class ProjectComponent implements OnInit {
   projects:any = [];
   viewProject:any;
- 
+  totalCount:number;
+  currentPage:number = 1;
   constructor(private route:Router,private sidemenuservice:SideMenuService, private shared:SharedService,private project:ProjectService) {
     this.sidemenuservice.changeNav({'menu':true});
-    this.getProjects();
+    
   }
 
   ngOnInit() {
+    this.getProjects(this.currentPage);
   }
 
   goToAddProject(id){
@@ -32,9 +34,10 @@ export class ProjectComponent implements OnInit {
     this.route.navigate([`/assign-broker`])
   }
 
-  getProjects(){
-    this.project.getProjects().subscribe(({radiate_projects_data}:any)=>{
+  getProjects(page){
+    this.project.getProjects(page).subscribe(({radiate_projects_data,total_count}:any)=>{
        this.projects = radiate_projects_data;
+       this.totalCount = total_count;
     });
   }
 

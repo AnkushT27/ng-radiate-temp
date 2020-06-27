@@ -35,12 +35,15 @@ export class LeadsComponent implements OnInit {
   projectIdArray: any = [];
   universalCheckedProject: boolean;
   projects: any = [];
- 
+  totalLeads:number;
+  currentPage:number = 1;
+  leadFields: any = {};
+  builderLeadData: any = {};
+  brokerLeaddata: any = {};
   constructor(private sidemenuservice : SideMenuService,private modalService : BsModalService,private leadservice:LeadsService,private projectService:ProjectService) {
-    //this.addClassesForBody();
     this.sidemenuservice.changeNav({'menu':true});
-    this.getLeads();
     this.leadTableOptions = {
+      paging:false,
       searching:false,
       pagingType: 'full_numbers',
       lengthMenu: [[5, 10, 20, 50,-1],
@@ -56,7 +59,7 @@ export class LeadsComponent implements OnInit {
   }
 
   ngOnInit() {
- 
+    this.getLeads(this.currentPage);
   }
   pushAllLeadID(event){
     this.singleChecked = this.universalChecked;
@@ -73,21 +76,28 @@ export class LeadsComponent implements OnInit {
     console.log('lead',this.leadIdArray)
   }
  
-
   viewProjectList(template:TemplateRef<any>,id){
     this.getProjects();
     this.modalRef = this.modalService.show(template,this.config);
    
    }
-   viewProjectData(template:TemplateRef<any>,id){
+   viewLeadData(template:TemplateRef<any>,id){
     this.getLead(id);
     this.modalRef = this.modalService.show(template,this.config);
    
    }
 
+   deleteLead(id){
+     this.leadservice.deleteLead(id).subscribe(({status}:any)=>{
+       if(status){
+         this.getLeads(this.currentPage);
+       }
+     })
+   }
+
    getProjects(){
     this.projects = [];
-    this.projectService.getProjects().subscribe(({radiate_projects_data}:any)=>{
+    this.projectService.getProjects(1).subscribe(({radiate_projects_data}:any)=>{
       this.projects = radiate_projects_data;
       $('#DataTables-Project').DataTable().destroy();
       this.projectListTableTrigger.next();
@@ -157,18 +167,23 @@ export class LeadsComponent implements OnInit {
      this.modalRef.hide()
    }
 
-  getLeads(){
+  getLeads(page){
+    this.currentPage = page;
     this.responses=[];
-     this.leadservice.leads(this.searchString).subscribe(({radiate_b_leads}:any)=>{
+    $('#DataTables').DataTable().destroy();
+     this.leadservice.leads(this.searchString,page).subscribe(({radiate_b_leads,total_count}:any)=>{
      this.responses = radiate_b_leads;
-     $('#DataTables').DataTable().destroy();
+     this.totalLeads = total_count;
      this.leadTableTrigger.next();
      })
   }
 
    getLead(index){
-    this.leadservice.getEachLead(index).subscribe((res:any)=>{
-      this.response = res
+    this.leadservice.getEachLead(index).subscribe(({data:{lead_fields,builder_lead_fields,broker_fields}}:any)=>{
+      console.log(lead_fields)
+      this.leadFields = lead_fields;
+      this.builderLeadData = builder_lead_fields;
+      this.brokerLeaddata = broker_fields;
     })
     
    }

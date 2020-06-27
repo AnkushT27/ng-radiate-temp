@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  baseURL:'http://dd126b5a817d.ngrok.io/api/radiate_builders',
-  //baseURL:'http://syndicate.staging.property-pistol.in/api/radiate_builders'
+  // baseURL:'http://e1e5247f384b.ngrok.io/api/radiate_builders',
+  baseURL:'http://syndicate.staging.property-pistol.in/api/radiate_builders'
 };
 
 /*
