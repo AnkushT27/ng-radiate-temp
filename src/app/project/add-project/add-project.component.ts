@@ -4,10 +4,29 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SideMenuService } from '../../side-menu.service';
 import {SharedService} from '../../shared/shared.service'
 import { ActivatedRoute, Router } from '@angular/router';
+import { OwlDateTimeComponent, DateTimeAdapter, OWL_DATE_TIME_FORMATS, OWL_DATE_TIME_LOCALE, OwlDateTimeFormats } from 'ng-pick-datetime';
+import * as _moment from 'moment';
+import { Moment } from 'moment';
+import { MomentDateTimeAdapter } from 'ng-pick-datetime-moment';
+const moment = (_moment as any).default ? (_moment as any).default : _moment;
+export const MY_MOMENT_DATE_TIME_FORMATS: OwlDateTimeFormats = {
+  parseInput: 'MM/YYYY',
+  fullPickerInput: 'l LT',
+  datePickerInput: 'MM/YYYY',
+  timePickerInput: 'LT',
+  monthYearLabel: 'MMM YYYY',
+  dateA11yLabel: 'LL',
+  monthYearA11yLabel: 'MMMM YYYY',
+};
+
 @Component({
   selector: 'app-add-project',
   templateUrl: './add-project.component.html',
-  styleUrls: ['./add-project.component.css']
+  styleUrls: ['./add-project.component.css'],
+  providers:[
+    {provide: DateTimeAdapter, useClass: MomentDateTimeAdapter, deps: [OWL_DATE_TIME_LOCALE]},
+    {provide: OWL_DATE_TIME_FORMATS, useValue: MY_MOMENT_DATE_TIME_FORMATS},
+  ]
 })
 export class AddProjectComponent implements OnInit {
   addProjectForm:FormGroup
@@ -24,6 +43,7 @@ export class AddProjectComponent implements OnInit {
     budget:0,
     unit:''
    }
+   public date = new FormControl(moment());
   constructor(private router:Router,private sidemenuservice:SideMenuService, private shared:SharedService,private project:ProjectService,private route:ActivatedRoute) {
     this.sidemenuservice.changeNav({'menu':true});
     this.addProjectForm = new FormGroup({
@@ -31,13 +51,14 @@ export class AddProjectComponent implements OnInit {
       location: new FormControl('', [Validators.required]),
       budgetFrom: new FormControl('', [Validators.required,Validators.pattern(this.shared.getValidator('budget'))]),
       budgetTo: new FormControl('', [Validators.required,Validators.pattern(this.shared.getValidator('budget'))]),
-      possesion: new FormControl('', [Validators.required]),
+      possesion: new FormControl(this.date, [Validators.required]),
       website: new FormControl('', [Validators.required]),
       knowledge: new FormControl('', [Validators.required]),
       status: new FormControl('', [Validators.required]),
       budgetFromUnit: new FormControl('Lc', [Validators.required]),
       budgetToUnit: new FormControl('Lc', [Validators.required]),
       });
+    
      const id = this.route.snapshot.paramMap.get('id')
      if(id){
        this.editFlag = true;
@@ -54,6 +75,9 @@ export class AddProjectComponent implements OnInit {
     Number(addprojectForm.value.budgetFrom*100000) : Number(addprojectForm.value.budgetFrom*10000000)
     addprojectForm.value.budgetTo = addprojectForm.value.budgetToUnit === 'Lc' ? 
     Number(addprojectForm.value.budgetTo*100000) : Number(addprojectForm.value.budgetTo*10000000)
+    console.log(this.date.value)
+    let possesion_month = moment(this.date.value).format('MMMM/YYYY').split('/')[0]
+    let possesion_year = moment(this.date.value).format('MMMM/YYYY').split('/')[1]
     var projectpayload={
       "title":addprojectForm.value.name,
       "description":"No description",
@@ -64,6 +88,8 @@ export class AddProjectComponent implements OnInit {
       "budget_upto":addprojectForm.value.budgetTo,
       "builder_id":"1",
       "knowledge_center": addprojectForm.value.knowledge,
+      "posession_month":possesion_month,
+      "posession_year":possesion_year,
       "locality_id": 26,
       "locality_name": "Waghbil",
       
@@ -82,7 +108,8 @@ export class AddProjectComponent implements OnInit {
       this.locality = res.locality;
       this.numDifferentiation(res.budget_from,0);
       this.numDifferentiation(res.budget_upto,1);
-      this.addProjectForm.controls['name'].setValue(res.title);
+      this.date.setValue(moment(res.posession_month+'/'+res.posession_year,'MMMM/YYYY'))
+     this.addProjectForm.controls['name'].setValue(res.title);
       this.addProjectForm.controls['location'].setValue(res.locality_name);
       this.addProjectForm.controls['budgetFrom'].setValue(this.budgetFrom.budget);
       this.addProjectForm.controls['budgetFromUnit'].setValue(this.budgetFrom.unit);
@@ -105,6 +132,19 @@ export class AddProjectComponent implements OnInit {
       flag==0? (this.budgetFrom.budget = (val / 100000),this.budgetFrom.unit = 'Lc') :
       (this.budgetTo.budget = (val / 100000),this.budgetTo.unit = 'Lc') ;
     }
+  }
+
+  chosenYearHandler( normalizedYear: Moment ) {
+      const ctrlValue = this.date.value;
+      ctrlValue.year(normalizedYear.year());
+      this.date.setValue(ctrlValue);
+  }
+
+  chosenMonthHandler( normalizedMonth: Moment, datepicker: OwlDateTimeComponent<Moment> ) {
+      const ctrlValue = this.date.value;
+      ctrlValue.month(normalizedMonth.month());
+      this.date.setValue(ctrlValue);
+      datepicker.close();
   }
 
 

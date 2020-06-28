@@ -8,6 +8,7 @@ import { AssignBrokersComponent } from './assign-brokers/assign-brokers.componen
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { DataTablesModule } from 'angular-datatables';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { SelectModule } from 'ng2-select';
 @NgModule({
   imports: [
     CommonModule,
@@ -17,7 +18,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     DataTablesModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    SelectModule
   ],
   declarations: [ProjectComponent, AddProjectComponent, AssignBrokersComponent],
 })

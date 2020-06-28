@@ -15,4 +15,8 @@ export class AssociateBrokerService {
   getBlacklistedBrokers(page){
     return this.http.get(`${environment.baseURL}/brokers/blacklisted?page=${page}`)
   }
+
+  getProjectsForBrokers(page,id){
+    return this.http.get(`${environment.baseURL}/brokers/${id}/broker_project?page=${page}`)
+  }
 }

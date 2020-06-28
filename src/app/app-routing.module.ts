@@ -6,6 +6,10 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: './login/login.module#LoginModule'
+  },
+  {
+    path: 'projects/:id',
+    loadChildren: './project/project.module#ProjectModule'
   }
 ];
 

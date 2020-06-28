@@ -1,100 +1,167 @@
 <div class="main">
-    <section>
-      <!--   <button id="sideBar">Show/Hide Right Push Menu</button> -->
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card">
-              <div class="card-header">
+  <section>
+    <!--   <button id="sideBar">Show/Hide Right Push Menu</button> -->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-md-7">
+                  <h1>Projects</h1>
+                </div>
+                <div class="col-md-5">
+                  <div class="input-group search-header">
+                    <img src="images/search_icon.svg" alt="">
+                    <input type="text" class="form-control" placeholder="Search Project Name" aria-label="Search Project Name" aria-describedby="button-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="holder-lead">
                 <div class="row">
-                  <div class="col-md-7">
-                    <h1>Projects</h1>
+                  <div class="col-md-6" (click)="openApplyFilters()">
+                    <span class="title-filters">Apply Filters</span>
                   </div>
-                  <div class="col-md-5">
-                    <div class="input-group search-header">
-                      <img src="images/search_icon.svg" alt="">
-                      <input type="text" class="form-control" placeholder="Search Project Name" aria-label="Search Project Name" aria-describedby="button-addon2">
-                      <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+                  <div class="col-md-6">
+                    <a class="btn btn-project float-right"  (click)="goToAddProject(0)"><i class="fa plus-icon">+</i> Add New Project</a>
+                  </div>
+                </div>
+                <form novalidate (ngSubmit)="addProjectData()" [formGroup]="filterForm" autocomplete="off">
+                <div class="row">
+                 <div class="col-3">
+                    <label for="Location">Location</label>
+                    <select id="location" formControlName="location">
+                      <option value="">select</option>
+                      <option value="1">Thane</option>
+                      <option value="2">Mulund</option>
+                      <option value="3">Bhandup</option>
+                    </select>
+                    <span class="error" *ngIf="(filterForm.get('location').hasError('required') && filterForm.get('location').touched)">
+                    This field is mandatory
+                    </span>
+                  </div>
+                  <div class="col-3">
+                    <label for="broker">Broker</label>
+                    <ng-select id="broker" name="broker" [(active)]="active" [items]="brokers" formControlName="broker"  (selected)="selected($event)"></ng-select>
+                   <span class="error" *ngIf="(filterForm.get('broker').hasError('required') && filterForm.get('broker').touched)">
+                    This field is mandatory
+                    </span>
+                  </div>
+                  <div class="col-3">
+                    <label for="Possession">Possession</label>
+                    <select id="Possession" formControlName="posession">
+                      <option value="">select</option>
+                      <option value="saab">2021</option>
+                      <option value="fiat">2022</option>
+                      <option value="audi">2023</option>
+                    </select>
+                    <span class="error" *ngIf="(filterForm.get('posession').hasError('required') && filterForm.get('posession').touched)">
+                    This field is mandatory
+                    </span>
+                  </div>
+                  <div class="col-3">
+                    <label for="Budget">Budget Range</label>
+                    <select id="Budget" formControlName="budgetFrom">
+                      <option value="">min</option>
+                      <option value="saab">5Lc</option>
+                      <option value="fiat">10Lc</option>
+                      <option value="audi">15Lc</option>
+                    </select>
+                    <span class="error" *ngIf="(filterForm.get('budgetFrom').hasError('required') && filterForm.get('budgetFrom').touched)">
+                    This field is mandatory
+                    </span>
+                    <select id="Budget" formControlName="budgetTo">
+                      <option value="">max</option>
+                      <option value="saab">5Lc</option>
+                      <option value="fiat">10Lc</option>
+                      <option value="audi">15Lc</option>
+                    </select>
+                    <span class="error" *ngIf="(filterForm.get('budgetTo').hasError('required') && filterForm.get('budgetTo').touched)">
+                    This field is mandatory
+                    </span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-3">
+                    <label for="Status">Status</label>
+                    <select id="Status" formControlName="status">
+                      <option value="">select</option>
+                      <option value="saab">New</option>
+                      <option value="fiat">Old</option>
+                      <option value="audi">Sold Out</option>
+                    </select>
+                    <span class="error" *ngIf="(filterForm.get('status').hasError('required') && filterForm.get('status').touched)">
+                    This field is mandatory
+                    </span>
+                  </div>
+                  <div class="col-2">
+                    <a [routerLink]="" (click)="clearFilters()">Clear</a>
+                  </div>
+                  <div class="col-2">
+                    <button class="btn btn-secondary btn-sm mt-4" type="submit" [disabled]='!filterForm.valid'>Apply</button> 
+                  </div>
+                </div>
+              </form>
+              </div>
+              <div class="lead-container" *ngFor="let project of projects | paginate: { id: 'server', itemsPerPage: 5, currentPage: currentPage, totalItems: totalCount }">
+                <h1>{{project.title}} <span class="location">{{project.locality_name}}</span></h1>
+                <div class="row">
+                  <div class="col-md-9">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <span class="grid-details">
+                        <span class="light-text">Possession:</span>{{project.posession}}
+                        </span>
+                      </div>
+                      <div class="col-md-4">
+                        <span class="grid-details">
+                        <span class="light-text">Knowledge Centre:</span>{{project.knowledge_center}}
+                        </span>
+                      </div>
+                      <div class="w-100"></div>
+                      <div class="col-md-4">
+                        <span class="grid-details">
+                        <span class="light-text">Budget Range:</span>{{project.budget_from}}-{{project.budget_upto}}
+                        </span>
+                      </div>
+                      <div class="col-md-4">
+                        <span class="grid-details">
+                        <span class="light-text">Status:</span>{{project.status}}
+                        </span>
+                      </div>
+                      <div class="col-md-4">
+                        <span class="grid-details">
+                        <span class="light-text">Website:</span>{{project.website}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="row">
+                      <div class="col-md-12 text-right">
+                        <span class="grid-details">
+                        <a  class="text-link" [routerLink]=""  (click)="goToAddProject(project.id)">Edit Details</a>
+                        </span>
+                      </div>
+                      <div class="col-md-12 text-right">
+                        <span class="grid-details">
+                        <a  class="text-link" [routerLink]=""  (click)="goToAssignBroker(project.title)">Assign Broker</a>
+                        </span>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="card-body">
-                <div class="holder-lead">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <span class="title-filters">Apply Filters</span>
-                    </div>
-                    <div class="col-md-6">
-                      <a class="btn btn-project float-right"    (click)="goToAddProject(0)"><i class="fa plus-icon">+</i> Add New Project</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="lead-container" *ngFor="let project of projects | paginate: { id: 'server', itemsPerPage: 5, currentPage: currentPage, totalItems: totalCount }">
-                  <h1>{{project.title}} <span class="location">{{project.locality_name}}</span></h1>
-                  <div class="row">
-                    <div class="col-md-9">
-                      <div class="row">
-                        <div class="col-md-4">
-                          <span class="grid-details">
-                            <span class="light-text">Possession:</span>{{project.posession}}
-                          </span>
-                        </div>
-                        <div class="col-md-4">
-                          <span class="grid-details">
-                            <span class="light-text">Knowledge Centre:</span>{{project.knowledge_center}}
-                          </span>
-                        </div>
-                         <div class="w-100"></div>
-
-
-                        <div class="col-md-4">
-                          <span class="grid-details">
-                            <span class="light-text">Budget Range:</span>{{project.budget_from}}-{{project.budget_upto}}
-                          </span>
-                        </div>
-                        <div class="col-md-4">
-                          <span class="grid-details">
-                            <span class="light-text">Status:</span>{{project.status}}
-                          </span>
-                        </div>
-                        <div class="col-md-4">
-                          <span class="grid-details">
-                            <span class="light-text">Website:</span>{{project.website}}
-                          </span>
-                        </div>
-                      </div>
-                      
-                    </div>
-                    <div class="col-md-3">
-                      <div class="row">
-                        <div class="col-md-12 text-right">
-                          <span class="grid-details">
-                            <a  class="text-link" [routerLink]=""  (click)="goToAddProject(project.id)">Edit Details</a>
-                          </span>
-                           </div>
-                            <div class="col-md-12 text-right">
-                           <span class="grid-details">
-                            <a  class="text-link" [routerLink]=""  (click)="goToAssignBroker(project.title)">Assign Broker</a>
-                          </span>
-                        </div>
-                      </div>
-                         
-                    </div>
-                  </div>
-                </div>
-                <pagination-controls (pageChange)="getProjects($event)" id="server"></pagination-controls>
-              </div>
+              <pagination-controls (pageChange)="getProjects($event)" id="server"></pagination-controls>
             </div>
           </div>
         </div>
       </div>
-      
-    </section>
-    
-  </div>
-
-
- 
+    </div>
+  </section>
+</div>

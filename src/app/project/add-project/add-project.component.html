@@ -72,18 +72,13 @@
                       <div class="col-md-3">
                         <div class="form-group">
                           <label for="formGroupExampleInput">Possession</label>
-                          <select class="form-control" formControlName="possesion">
-                            <option selected>Select</option>
-                            <option value="2022">2022</option>
-                            <option value="2021">2021</option>
-                            <option value="2020">2020</option>
-                            <option value="2019">2019</option>
-                            <option value="2018">2018</option>
-                          </select>
+                          <input [owlDateTime]="possesion" [owlDateTimeTrigger]="possesion"  [formControl]="date" placeholder="Next Call Date" class="form-control">
+                          <owl-date-time [pickerType]="'calendar'" [startView]="'multi-years'"  (yearSelected)="chosenYearHandler($event)"
+                          (monthSelected)="chosenMonthHandler($event, possesion)" #possesion="owlDateTime"></owl-date-time>
                           <span class="error" *ngIf="(addProjectForm.get('possesion').hasError('required') && addProjectForm.get('possesion').touched)">
-                            This field is mandatory
+                          This field is mandatory
                           </span>
-                        </div>
+                         </div>
                       </div>
                       <div class="col-md-3">
                         <div class="form-group">

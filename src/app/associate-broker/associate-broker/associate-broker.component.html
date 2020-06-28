@@ -54,7 +54,7 @@
                                 <td>{{broker.broker_firm_name}}</td>
                                 <td>{{broker.broker_contact_number}}</td>
                                 <td>{{broker.broker_email}}</td>
-                                <td><a href="" [routerLink]=""  (click)="goToActiveProjects()">{{broker.activeProjects}}</a></td>
+                                <td><a href="" [routerLink]=""  (click)="goToActiveProjects(broker.id)">{{broker.project_count}}</a></td>
                                 <td class="font-weight-bold" (click)="blackListBroker()"><span>Blacklist</span></td>
                               </tr>
                              </tbody>
@@ -79,7 +79,7 @@
                                 <td>{{broker.broker_firm_name}}</td>
                                 <td>{{broker.broker_contact_number}}</td>
                                 <td>{{broker.broker_email}}</td>
-                                <td><a href="" [routerLink]=""  (click)="goToActiveProjects()">{{broker.activeProjects}}</a></td>
+                                <td><a href="" [routerLink]=""  (click)="goToActiveProjects(broker.id)">{{broker.activeProjects}}</a></td>
                                 <td class="font-weight-bold" (click)="removeBlackList()"><span>Remove</span></td>
                               </tr>
                             </tbody>

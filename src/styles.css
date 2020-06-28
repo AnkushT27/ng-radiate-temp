@@ -667,3 +667,47 @@ margin-bottom: 50px;
 .cdk-global-overlay-wrapper, .cdk-overlay-container {
     z-index: 99999 !important;
 }
+select
+{
+width: 90px;
+height: 31px;
+background: #FFFFFF 0% 0% no-repeat padding-box;
+font: Medium Inter;
+font-size: 12px;
+border: 0.5px solid #A2A2A2;
+border-radius: 4px;
+opacity: 0.6;
+}
+
+#Budget
+{
+width: 50px;
+height: 31px;
+background: #FFFFFF 0% 0% no-repeat padding-box;
+border: 0.5px solid #A2A2A2;
+border-radius: 4px;
+opacity: 0.6;
+
+}
+label
+{
+	text-align: left;
+font: Medium Inter;
+font-size: 14px;
+letter-spacing: 0.28px;
+color: #262626;
+opacity: 0.6;
+}
+.column {
+  float: left;
+  width: 17%;
+  
+  }
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.open.dropdown .dropdown-menu { display: block; transform: none; }

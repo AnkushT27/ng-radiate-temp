@@ -3,6 +3,7 @@ import {SideMenuService} from '../../side-menu.service'
 import {BsModalService,BsModalRef} from 'ngx-bootstrap/modal';
 import {Subject} from 'rxjs';
 import { AssociateBrokerService } from '../associate-broker.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-associate-broker',
   templateUrl: './associate-broker.component.html',
@@ -25,7 +26,7 @@ export class AssociateBrokerComponent implements OnInit {
   brokerTableTriggerBlack: Subject<any> = new Subject();
   totalCount:number;
   currentPage:number = 1;
-  constructor(private sidemenuservice : SideMenuService,private modalService : BsModalService,private brokerService:AssociateBrokerService) { 
+  constructor(private route:Router,private sidemenuservice : SideMenuService,private modalService : BsModalService,private brokerService:AssociateBrokerService) { 
     this.sidemenuservice.changeNav({'menu':true});
    this.brokerTableOptions = {
       paging:false,
@@ -75,8 +76,8 @@ export class AssociateBrokerComponent implements OnInit {
 
  }
 
- goToActiveProjects(){
-
+ goToActiveProjects(id){
+    this.route.navigate([`/projects/${id}`])
  }
     
 }
