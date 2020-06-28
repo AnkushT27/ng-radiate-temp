@@ -58,8 +58,9 @@ export class ProjectComponent implements OnInit {
   
   getProjectsForBrokers(page){
      this.broker.getProjectsForBrokers(page,this.brokerId).subscribe(({broker_name:{broker_name},data:{radiate_projects_data,total_count}}:any)=>{
-        this.filterForm.controls['broker'].setValue(broker_name);
-        this.project = radiate_projects_data;
+       this.filterForm.controls['broker'].setValue([broker_name]);
+        console.log(radiate_projects_data)
+        this.projects = radiate_projects_data;
         this.totalCount = total_count;
      })
   }
