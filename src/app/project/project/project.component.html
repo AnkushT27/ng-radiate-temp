@@ -31,7 +31,8 @@
                     <a class="btn btn-project float-right"  (click)="goToAddProject(0)"><i class="fa plus-icon">+</i> Add New Project</a>
                   </div>
                 </div>
-                <form novalidate (ngSubmit)="addProjectData()" [formGroup]="filterForm" autocomplete="off">
+                <div >
+                <form novalidate (ngSubmit)="addProjectData()" [formGroup]="filterForm" autocomplete="off" class="inner" [@filterAnimation]='state'>
                 <div class="row">
                  <div class="col-3">
                     <label for="Location">Location</label>
@@ -107,6 +108,7 @@
                   </div>
                 </div>
               </form>
+              </div>
               </div>
               <div class="lead-container" *ngFor="let project of projects | paginate: { id: 'server', itemsPerPage: 5, currentPage: currentPage, totalItems: totalCount }">
                 <h1>{{project.title}} <span class="location">{{project.locality_name}}</span></h1>
